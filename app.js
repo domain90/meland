@@ -17,7 +17,7 @@ var Promise = require("bluebird");
 /////////////////////////////////////
 //Server Config
 /////////////////////////////////////
-mongoose.connect("mongodb://localhost/yelp_camp_v6" || MONGOLAB_URI);
+mongoose.connect("mongodb://localhost/yelp_camp_v6" || process.env.MONGOLAB_URI);
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
