@@ -1,0 +1,54 @@
+<% include ./partials/header %>
+
+<div class="container profile-container">
+	<div class="row">
+		<div class="col-6">
+		<form method="POST" enctype="multipart/form-data" action="/">
+			<h2>Tu perfil</h2>
+			<label for="Avatar">Avatar</label>
+			<label for="file-upload" class="custom-file-upload">
+			    <img src="<%= currentUser.avatar %>" alt="">
+			</label>
+			<input id="file-upload" type="file"/>
+			<div class="form-group">
+				<label for="">Usuario</label>
+			    <input type="text" name="username" class="form-control" >
+			</div>
+			<div class="form-group">
+				<label for="">Contraseña</label>
+			    <input type="text" name="password" class="form-control" >
+			</div>
+			<div class="form-group">
+				<label for="">Email</label>
+			    <input type="text" name="email" class="form-control" >
+			</div>
+			<button class="btn btn-primary">Actualizar</button>
+		</form>
+		</div>
+		
+	</div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% include ./partials/footer %>

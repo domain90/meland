@@ -1,0 +1,51 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <% Gags.forEach(function(gag){ %>
+  <div class="row">
+    <div class="card">
+      <div class="head-title">
+        <h3 class="gag-title"><%= gag["title"] %></h3>
+      </div>
+      <div class="content-img">
+        <a href="/gags/<%= gag['_id'] %>">
+          <img src="<%= gag['image'] %>">
+        </a>
+      </div>
+      <div class="meta">
+        <div class="meta-info">
+          <p class="left-floated"><%= gag["views"] %> Views</p>
+          -
+          <p class="left-floated"><%= gag["commentsNumber"] %> Comments</p>
+        </div>
+      </div>
+      <div class="cta">
+      <div class="left-floated">
+        <div class="upvote btn btn-default">
+          <span class="glyphicon glyphicon-arrow-up">
+        </div>
+        <div class="downvote btn btn-default">
+          <span class="glyphicon glyphicon-arrow-down">
+        </div>
+        <div class="upvote btn btn-default">
+          <span class="glyphicon glyphicon-option-horizontal">
+        </div>
+      </div>
+      <div class="right-floated">
+        <a href="#" title="Facebook" class="btn btn-facebook">
+          <i class="fa fa-facebook fa-fw"></i> Facebook
+        </a>
+      </div>
+      
+      </div>
+      <hr>  
+    </div>
+  </div>
+  <% }) %>
+  
+</div>
+      
+   
+</div>
+
+<% include ../partials/footer %>

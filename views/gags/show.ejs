@@ -1,0 +1,109 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <article data-id="<%= gag["id"] %>">
+    <div class="row">
+      <div class="card">
+        <div class="head-title">
+          <h3 class="gag-title"><%= gag["title"] %></h3>
+        </div>
+        <div class="content-img">
+          <a href="/gags/<%= gag['_id'] %>">
+            <img src="<%= gag['image'] %>">
+          </a>
+        </div>
+        <div class="meta">
+          <div class="meta-info">
+            <p class="left-floated"><%= gag["views"] %> Views</p>
+            -
+            <p class="left-floated"><%= gag["commentsNumber"] %> Comments</p>
+          </div>
+        </div>
+        <div class="cta">
+          <div class="left-floated">
+              <div class="upvote btn btn-default">
+                <span class="glyphicon glyphicon-arrow-up">
+              </div>
+              <div class="upvote btn btn-default">
+                <span class="glyphicon glyphicon-arrow-down">
+              </div>
+              <div class="upvote btn btn-default">
+                <span class="glyphicon glyphicon-option-horizontal">
+              </div>
+          </div>
+          <div class="right-floated">
+              <a href="#" title="Facebook" class="btn btn-facebook">
+                <i class="fa fa-facebook fa-fw"></i> Facebook
+              </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="comments">
+        <div class="comment-box">
+          <div class="payload">
+            <div class="comment-user-container">
+            <% if(!currentUser) { %>
+              <img src="/default_avatar.png" alt="" class="user_avatar">
+            <% } else { %>
+              <img src="<%= currentUser.avatar %>" alt="" class="user_avatar">
+            <% } %>
+            </div>
+            <form method="POST" action="/gags/<%= gag._id %>">
+              <div class="comment-input-area">
+                <textarea name="comment[text]" rows="4" class="comment-input" id="comment-text"></textarea>
+              </div>
+              <div class="text-right">
+                <button class="btn btn-success commentSubmit" id="commentSubmit" type="submit" value="Submit">Add Comment</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div class="comments-container">
+          <% gag.comments.forEach(function(comment){ %>
+          <div class="row comments-row">
+            <div class="comment-payload col-md-12" data-comment-id="<%= comment._id %>">
+              <div class="comment-user-container">
+                <img src="<%= comment.author.avatar %>" alt="" class="user_avatar">
+              </div>
+              <div class="comment-input-area">
+                <div class="comment-meta">
+                  <strong><%= comment.author.username %></strong>
+                  <span class="gag-votes"><%= comment.votes %> Votes</span>
+                </div>
+                <p class="comment-main"><%= comment.text %></p>
+                <div class="comment-cta">
+                  <a href="" class="comment-reply-link">Reply</a>
+                  <a href=""><span class="glyphicon glyphicon-arrow-up"></a>
+                  <a href=""><span class="glyphicon glyphicon-arrow-down"></a>
+                </div>
+              </div>
+            </div>
+            <% comment.commentChildren.forEach(function(commentChildren){ %>
+            <div class="comment-payload col-md-12" data-comment-id="<%= commentChildren._id %>">
+              <div class="comment-user-container">
+                <img src="<%= commentChildren.author.avatar %>" alt="" class="user_avatar">
+              </div>
+              <div class="comment-input-area">
+                <div class="comment-meta">
+                  <strong><%= commentChildren.author.username %></strong>
+                  <span class="gag-votes"><%= commentChildren.votes %> Votes</span>
+                </div>
+                <p class="comment-main"><%= commentChildren.text %></p>
+                <div class="comment-cta">
+                  <a href="" class="comment-reply-link">Reply</a>
+                  <a href=""><span class="glyphicon glyphicon-arrow-up"></a>
+                  <a href=""><span class="glyphicon glyphicon-arrow-down"></a>
+                </div>
+              </div>
+            </div>
+           <% }) %>
+          </div>
+          <% }) %>
+        </div>  
+      </div>
+    </div>
+  </article>    
+</div>
+<% include ../partials/footer %>

@@ -1,0 +1,352 @@
+/******************************************************/
+/*HEADER*/
+/******************************************************/
+.navbar {
+	border: none;
+}
+.navbar > .container-fluid {
+	background-color: #FDE74C;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+}
+.navbar-default .navbar-nav> li > a {
+	color: #000;
+	font-weight: 700;
+}
+.avatar-container {
+	width: 30px;
+	height: 30px;
+	padding: 10px 0 !important;
+}
+.user_avatar {
+	width: 30px;
+	background-color: #fff;
+	border-radius: 2px;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+	color: #000;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+	background-color: transparent;
+}
+#username a{
+	padding-right: 8px;
+	pointer-events: none;
+}
+li.dropdown {
+	margin-right: 20px;
+}
+.navbar-nav>li>.dropdown-menu {
+	margin-top: 25px;
+}
+.uploadli {
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+#upload {
+	color: #fff;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border: none;
+	background-color: #3DB1E2;
+	border-radius: 5px;
+}
+a#upload:focus, a#upload:hover {
+	background-color: #3DB1E2;
+}
+.profile-mobile {
+	display: none !important;
+}
+/*MODAL*/
+.modal-body {
+	overflow: hidden;
+	padding: 0;
+}
+.body-half {
+	width: 50%;
+	border: 1px solid #e5e5e5;
+	padding: 30px;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.body-half .glyphicon {
+	font-size: 50px;
+	display: block;
+	text-align: center;
+}
+.modal-menu-label {
+	display: block;
+	text-align: center;
+	padding: 10px 10px 0 10px;
+	float: none;
+}
+.body-half a {
+	color: #429ae5;
+}
+.body-half:hover a, .body-half:focus a {
+	text-decoration: none;
+	color: #337ab7;
+}
+ul {
+  list-style-type: none;
+}
+input {
+	min-height: 40px;
+}
+#inlineFormCustomSelect {
+	min-height: 40px;
+}
+/******************************************************/
+/* INDEX */
+/******************************************************/
+.card {
+	width: 600px;
+	margin: 0 auto;
+}
+.card .cta {
+	overflow: hidden;
+}
+.card .cta .right-floated {
+	display: inline;
+	float: right;
+}
+.card .cta .left-floated {
+	display: inline;
+	float: left;
+}
+.content-img {
+	text-align: center;
+}
+.content-img img {
+	min-width: 600px;
+	max-width: 600px;
+	max-height: 600px;
+}
+.meta {
+	padding: 8px 0;
+}
+.meta-info p{
+	display: inline;
+}
+.btn-facebook {
+  background: #3B5998;
+  border-radius: 0;
+  color: #fff;
+}
+/*REGISTER*/
+.signup {
+	text-align: center;
+	width: 70%;
+	margin: 0 auto;
+}
+.signup img{
+	width: 150px;
+}
+input[type=file] {
+	margin: 0 auto;
+}
+label {
+	float: left;
+}
+
+/******************************************************/
+/* SHOW */
+/******************************************************/
+.payload .user_avatar {
+	width: 50px;
+}
+.comment-payload {
+	margin-bottom: 15px;
+}
+.comment-user-container {
+	display: inline-block;
+	float: left;
+}
+.comment-payload .user_avatar {
+	width: 50px;
+}
+.comment-input-area {
+	margin-left: 60px;
+}
+.comments {
+	width: 600px;
+	margin: 0 auto;
+	margin-top: 20px;
+	padding: 12px;
+}
+.payload textarea {
+	width: 100%;
+	resize: none;
+}
+.comment-main {
+	line-height: 2;
+	margin-bottom: 0;
+}
+.gag-title {
+	font-size: 24px;
+	font-weight: 700;
+}
+.gag-votes {
+	font-size: 12px;
+	padding-left: 5px;
+}
+.comment-cta {
+	margin-bottom: 10px;
+}
+.comment-cta a{
+	font-size: 13px;
+	font-weight: 700;
+	color: #808080;
+}
+.comment-reply-link {
+	padding-right: 5px;
+}
+.comment-payload .payload .comment-user-container img {
+	width: 50px;
+}
+.comment-payload .payload .comment-user-container .comment-input-area {
+	margin-left: 45px;
+}
+/******************************************************/
+/*TOGGLE*/
+/******************************************************/
+.upvoted {
+	border-color: blue;
+	color: blue;
+}
+.downvoted {
+	border-color: red;
+	color: red;
+}
+/******************************************************/
+/*LOGIN*/
+/******************************************************/
+.login-container {
+	max-width: 450px;
+}
+.login {
+	text-align: left;
+}
+.btn-social {
+	width: 100%;
+}
+.btn-login {
+	width: 100%;
+	background-color: #9BC53D;
+	border: none;
+	height: 34px;
+	border-radius: 5px;
+	color: #000;
+	font-weight: 700;
+	font-size: 16px;
+}
+.btn-login:hover {
+	background-color: #ADDD44;
+}
+/******************************************************/
+/*SIGN UP*/
+/******************************************************/
+.sign-container {
+	max-width: 450px;
+}
+.sign {
+	text-align: left;
+}
+.btn-social {
+	width: 100%;
+}
+.btn-sign {
+	width: 100%;
+	background-color: #9BC53D;
+	border: none;
+	height: 30px;
+	border-radius: 5px;
+	color: #000;
+	font-weight: 700;
+	font-size: 16px;
+}
+.btn-sign:hover {
+	background-color: #ADDD44;
+}
+.sign-container img {
+	width: 150px;
+}
+.sign-container input[type="file"] {
+    display: none;
+}
+.avatar-input {
+	overflow: hidden;
+	text-align: center;
+}
+.custom-file-upload {
+    display: block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin: 0;
+    width: 100%;
+}
+.btn-sign {
+	width: 100%;
+	background-color: #9BC53D;
+	border: none;
+	height: 34px;
+	border-radius: 5px;
+	color: #000;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+.profile-container {
+	width: 450px;
+}
+/******************************************************/
+/******************************************************/
+/*SIGN UP*/
+/******************************************************/
+/******************************************************/
+@media(max-width: 768px) {
+
+/******************************************************/
+/*MENU*/
+/******************************************************/
+.navbar-default .navbar-toggle {
+	border: none;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus{
+	background-color: #E5D244;
+}
+.navbar-default .navbar-toggle .icon-bar{
+	background-color: #000;
+	height: 3px;
+	border-radius: 5px;
+}
+
+
+.profile-mobile {
+	display: block !important;
+}
+.profile-mobile-a img {
+	margin-right: 10px;
+}
+#username, .dropdown, .dropdown-menu {
+	display: none !important;
+}
+#upload {
+	width: 15%;
+	text-align: center;
+}
+.uploadli {
+	margin-left: 10px;
+}
+.body-half {
+	width: 100%;
+}
+
+}
