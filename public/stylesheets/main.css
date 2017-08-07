@@ -360,8 +360,12 @@ label {
 	min-width: 0;
 	max-width: 100%;
 }
-
-
+/*************************************/
+/*SHOW*/
+/*************************************/
+.comments {
+	width: 100%;
+}
 
 
 
@@ -375,10 +379,24 @@ label {
 
 
 
-
-
-
+/*************************************/
+/*SIGNUP*/
+/*************************************/
 .sign-container .row {
 	padding: 10px;
 }
+/*************************************/
+/*PROFILE*/
+/*************************************/
+.profile-container {
+	width: 100%;
+}
+.profile-container .row {
+	padding: 10px;
+}
+.custom-file-upload {
+	text-align: center;
+}
+
+
 }
