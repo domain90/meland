@@ -363,4 +363,22 @@ label {
 
 
 
+
+
+/*************************************/
+/*LOGIN*/
+/*************************************/
+.login-container .row {
+	padding: 10px;
+}
+
+
+
+
+
+
+
+.sign-container .row {
+	padding: 10px;
+}
 }
