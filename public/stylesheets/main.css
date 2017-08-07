@@ -328,7 +328,8 @@ label {
 	border-radius: 5px;
 }
 #primary-cta {
-	width: 15%;
+	width: 25%;
+	text-align: center;
 }
 
 .profile-mobile {
