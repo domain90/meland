@@ -29,7 +29,7 @@
                 <ul class="nav navbar-nav navbar-right">
                <% if(!currentUser){ %>
                     <li><a href="/login">Log In</a></li>
-                    <li class="btn-upload"><a href="/register">Sign Up</a></li>
+                    <li id="primary-cta"><a href="/register">Sign Up</a></li>
                <% } else { %>
                    <li class="profile-mobile"><a href="/profile" class="profile-mobile-a"><img src="<%= currentUser.avatar %>" alt="" class="user_avatar"><%= currentUser.username %></a></li>
                    <li id="username">
@@ -39,7 +39,7 @@
                    <ul class="dropdown-menu">
                        <li><a href="/profile">Profile</a></li>
                        <li><a href="/logout">Log Out</a></li>
-                       <li class="uploadli"><a href="#myModal" id="upload" role="button" class="btn-upload" data-toggle="modal">Subir +</a></li>
+                       <li class="uploadli"><a href="#myModal" id="primary-cta" role="button" class="btn-upload" data-toggle="modal">Subir +</a></li>
                    </ul>
                    </li>
                <% } %>
