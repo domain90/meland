@@ -114,7 +114,7 @@ router.post("/", upload.single('gag'), function(req, res){
 //SHOW - displays more info about clicked/selected camp
 router.get("/gags/:id", function(req, res) {
     //find campground with provided ID
-    Gag.findById(req.params.id, { $inc: { views: 1 }})
+    Gag.findByIdAndUpdate(req.params.id, { $inc: { views: 1 }})
        .populate({
             path: 'comments',
             model: 'Comment',
