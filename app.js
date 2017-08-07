@@ -13,11 +13,19 @@ var Reply = require("./models/reply");
 var exsession = require("express-session");
 require('./config/passport.js')(passport);
 var Promise = require("bluebird");
-
+var mongodb = require('mongodb');
 /////////////////////////////////////
 //Server Config
 /////////////////////////////////////
-mongoose.connect("mongodb://localhost/yelp_camp_v6" || process.env.MONGOLAB_URI);
+mongoose.connect(process.env.MONGOLAB_URI);
+// var uri = 'mongodb://user:pass@host:port/db';
+// mongodb.MongoClient.connect(uri, function (err, db) {
+//     /* adventure! */
+// });
+
+
+
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
