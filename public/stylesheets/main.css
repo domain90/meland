@@ -327,7 +327,9 @@ label {
 	height: 3px;
 	border-radius: 5px;
 }
-
+#primary-cta {
+	width: 15%;
+}
 
 .profile-mobile {
 	display: block !important;
@@ -348,5 +350,16 @@ label {
 .body-half {
 	width: 100%;
 }
+
+.card {
+	max-width: 100%;
+	padding: 5px;
+}
+.content-img img {
+	min-width: 0;
+	max-width: 100%;
+}
+
+
 
 }
