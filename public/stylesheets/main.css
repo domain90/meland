@@ -355,6 +355,7 @@ label {
 .card {
 	max-width: 100%;
 	padding: 15px;
+	padding-top: 0;s
 }
 .content-img img {
 	min-width: 0;
