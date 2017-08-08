@@ -164,8 +164,9 @@ $(function() {
 
 		e.preventDefault();
 
-		var gagLink = $(this).parents(".content-img").sibligs("a").attr('href');
-
+		var gagLink = $(this).parents(".content-img").children("a").attr('href');
+		// $(this).parents(".content-img").sibligs("a").attr('href');
+		// $("a[href='http://www.google.com/']").attr('href', 'http://www.live.com/')
 		console.log(gagLink)
 		FB.ui(
 		{
