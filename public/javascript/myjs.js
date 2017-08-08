@@ -164,15 +164,17 @@ $(function() {
 
 		e.preventDefault();
 
-		var gagLink = $(this).attr('href');
+		var gagLink  = $(this).attr('href');
+		var gagTitle = $(this).find('h3');
 		// $(this).parents(".content-img").sibligs("a").attr('href');
 		// $("a[href='http://www.google.com/']").attr('href', 'http://www.live.com/')
-		console.log(gagLink)
+		console.log(gagLink);
+		console.log(gagTitle);
 		FB.ui(
 		{
 			method: 'share',
 			name: 'This is the content of the "name" field.',
-			link: 'http://www.groupstudy.in/articlePost.php?id=A_111213073144',
+			link: 'https://meland.herokuapp.com' + gagLink,
 		});
 
 	})
