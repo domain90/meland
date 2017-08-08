@@ -165,7 +165,7 @@ $(function() {
 		e.preventDefault();
 
 		var gagLink  = $(this).attr('href');
-		var gagTitle = $(this).find('h3');
+		var gagTitle = $(this).find('h3').text();
 		// $(this).parents(".content-img").sibligs("a").attr('href');
 		// $("a[href='http://www.google.com/']").attr('href', 'http://www.live.com/')
 		console.log(gagLink);
