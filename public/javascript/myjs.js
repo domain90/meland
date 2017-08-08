@@ -156,4 +156,22 @@ $(function() {
 			replybox.remove();
 		}
 	})
+
+	/////////////////////////
+	////////FB-SHARE/////////
+	/////////////////////////
+	$('.btn-facebook').click(function(e){
+
+	e.preventDefault();
+
+	var gagLink = $(this).parents(".content-img").sibligs("a").attr('href');
+	
+	FB.ui(
+	{
+		method: 'share',
+		name: 'This is the content of the "name" field.',
+		link: 'http://www.groupstudy.in/articlePost.php?id=A_111213073144',
+	});
+
+
 })
