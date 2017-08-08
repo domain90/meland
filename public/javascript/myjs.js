@@ -169,9 +169,9 @@ $(function() {
 		var gagPicture = $('.content-img').find('img').attr('src');
 		// $(this).parents(".content-img").sibligs("a").attr('href');
 		// $("a[href='http://www.google.com/']").attr('href', 'http://www.live.com/')
-		console.log(gagLink);
-		console.log(gagTitle);
-		console.log(gagPicture);
+		// console.log(gagLink);
+		// console.log(gagTitle);
+		// console.log(gagPicture);
 
 		FB.ui(
 		{
@@ -179,7 +179,9 @@ $(function() {
 			name: gagTitle,
 			link: 'https://meland.herokuapp.com' + gagLink,
 			picture: gagPicture,
-
+			caption: 'Top 3 reasons why you should care about your finance',
+			description: "What happens when you don't take care of your finances? Just look at our country -- you spend irresponsibly, get in debt up to your eyeballs, and stress about how you're going to make ends meet. The difference is that you don't have a glut of taxpayers…",
+			message: ""
 		});
 
 	})
