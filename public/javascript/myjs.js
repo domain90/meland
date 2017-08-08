@@ -166,13 +166,13 @@ $(function() {
 
 		var gagLink    = $(this).attr('href');
 		var gagTitle   = $('.head-title').find('h3').text();
-		var gagPicture = $('img').attr('src');
+		var gagPicture = $('.content-img').find('img').attr('src');
 		// $(this).parents(".content-img").sibligs("a").attr('href');
 		// $("a[href='http://www.google.com/']").attr('href', 'http://www.live.com/')
 		console.log(gagLink);
 		console.log(gagTitle);
 		console.log(gagPicture);
-		
+
 		FB.ui(
 		{
 			method: 'share',
