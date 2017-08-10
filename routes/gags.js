@@ -133,6 +133,49 @@ router.get("/gags/:id", function(req, res) {
     })
 })
 
+//EDIT 
+router.get("/gags/:id/edit", function(req, res){
+    Gag.findById(req.params.id).exec(function(err, foundGag){
+        res.render("campgrounds/edit", {gag: foundGag});
+    })
+})
+
+
+//UPDATE
+router.put("/:id", function(req, res){
+    var title = req.body.title;
+    var image = "";
+    if(!req.file){
+        var image = req.body.url
+    } else {
+        var image = "/uploads/" + req.file.filename;
+    }
+    var category = req.body.category;
+
+    var newGag = {title: title, image: image, category: category};
+    //Find and update the right campground
+     Gag.findByIdAndUpdate(req.params.id, newGag).exec(function(err, updatedGag){
+        if(err){
+            res.redirect('/gags')
+        } else {
+            //show more info in a template
+            res.redirect('/gags/' + req.params.id);
+        }
+     })
+})
+
+//DESTROY 
+router.delete("/:id", function(req, res){
+     Gag.findByIdAndRemove(req.params.id).exec(function(err){
+        if(err){
+            res.redirect('/campgrounds')
+        } else {
+            //show more info in a template
+            res.redirect('/campgrounds');
+        }
+     })
+})
+
 // =====================================
 // FACEBOOK ROUTES =====================
 // =====================================
