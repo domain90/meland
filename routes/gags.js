@@ -136,7 +136,7 @@ router.get("/gags/:id", function(req, res) {
 //EDIT 
 router.get("/gags/:id/edit", function(req, res){
     Gag.findById(req.params.id).exec(function(err, foundGag){
-        res.render("campgrounds/edit", {gag: foundGag});
+        res.render("gags/edit", {gag: foundGag});
     })
 })
 
