@@ -17,14 +17,11 @@ var mongodb = require('mongodb');
 /////////////////////////////////////
 //Server Config
 /////////////////////////////////////
-mongoose.connect(process.env.MONGOLAB_URI);
+mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/yelp_camp_v6");
 // var uri = 'mongodb://user:pass@host:port/db';
 // mongodb.MongoClient.connect(uri, function (err, db) {
 //     /* adventure! */
 // });
-
-
-
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
