@@ -143,7 +143,7 @@ router.get("/gags/:id/edit", function(req, res){
 
 //UPDATE
 router.put("/:id", function(req, res){
-    var title = req.body.title;
+    var title    = req.body.title;
     var category = req.body.category;
 
     var newGag = {title: title, category: category};
