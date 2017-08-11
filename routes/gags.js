@@ -144,15 +144,9 @@ router.get("/gags/:id/edit", function(req, res){
 //UPDATE
 router.put("/:id", function(req, res){
     var title = req.body.title;
-    var image = "";
-    if(!req.file){
-        var image = req.body.url
-    } else {
-        var image = "/uploads/" + req.file.filename;
-    }
     var category = req.body.category;
 
-    var newGag = {title: title, image: image, category: category};
+    var newGag = {title: title, category: category};
     //Find and update the right campground
     Gag.findByIdAndUpdate(req.params.id, newGag).exec(function(err, updatedGag){
         if(err){
