@@ -30,6 +30,14 @@
               <div class="upvote btn btn-default">
                 <span class="glyphicon glyphicon-option-horizontal">
               </div>
+              <% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+              <div class="upvote btn btn-default">
+                <a href="<%= gag['id'] %>/edit"></a><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </div>
+              <form method="POST" id="deleteForm" action="/campgrounds/<%= campground._id %>?_method=DELETE" >
+                 <i class="fa fa-trash" aria-hidden="true"></i>
+              </form>
+              <% } %>
           </div>
           <div class="right-floated">
             <a href="/gags/<%= gag['_id'] %>" title="Facebook" class="btn btn-facebook">
