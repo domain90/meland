@@ -5,7 +5,7 @@
     <div class="row">
         <h1 style="text-align: center;">Edita tu comentario</h1>
         <div style="width: 30%; margin: 30px auto;">
-             <form method="POST" action="/gags/<%= gag.id %>/<%= comment.id %>?_method=PUT" style="width: 80%; margin: 30px auto;">
+             <form method="POST" action="/gags/<%= gag_id %>/<%= comment.id %>?_method=PUT" style="width: 80%; margin: 30px auto;">
                 <div class="form-group">
                     <label for="">Texto</label>
                     <input class="form-control" type="text" name="comment[text]" value=<%= comment.text %>>
