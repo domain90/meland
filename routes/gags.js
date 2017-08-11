@@ -1,11 +1,12 @@
-var express = require("express");
-var app = express();
-var router = express.Router();
-var Gag = require("../models/gags");
-var mongoose = require("mongoose");
-var multer = require("multer");
-var passport = require("passport");
+var express      = require("express");
+var app          = express();
+var router       = express.Router();
+var Gag          = require("../models/gags");
+var mongoose     = require("mongoose");
+var multer       = require("multer");
+var passport     = require("passport");
 mongoose.Promise = require('bluebird');
+var middleware   = require("../middleware/index.js");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {

@@ -1,9 +1,9 @@
-var express = require("express");
-var router = express.Router({mergeParams: true});
-var Gag = require("../models/gags.js");
-var Comment = require("../models/comments.js");
-var Reply   = require("../models/reply.js");
-var middleware = require("../middleware/index.js")
+var express    = require("express");
+var router     = express.Router({mergeParams: true});
+var Gag        = require("../models/gags.js");
+var Comment    = require("../models/comments.js");
+var Reply      = require("../models/reply.js");
+var middleware = require("../middleware/index.js");
 //====================================
 //COMMENTS
 //====================================
