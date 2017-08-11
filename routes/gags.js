@@ -161,10 +161,10 @@ router.put("/:id", function(req, res){
 router.delete("/:id", function(req, res){
      Gag.findByIdAndRemove(req.params.id).exec(function(err){
         if(err){
-            res.redirect('/campgrounds')
+            res.redirect('/gags')
         } else {
             //show more info in a template
-            res.redirect('/campgrounds');
+            res.redirect('/');
         }
      })
 })
