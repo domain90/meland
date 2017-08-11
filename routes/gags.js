@@ -143,12 +143,12 @@ router.get("/gags/:id/edit", function(req, res){
 
 //UPDATE
 router.put("/:id", function(req, res){
-    var title    = req.body.title;
-    var category = req.body.category;
+    // var title    = req.body.title;
+    // var category = req.body.category;
 
-    var newGag = {title: title, category: category};
+    // var newGag = {title: title, category: category};
     //Find and update the right campground
-    Gag.findByIdAndUpdate(req.params.id, newGag).exec(function(err, updatedGag){
+    Gag.findByIdAndUpdate(req.params.id, req.body.gag).exec(function(err, updatedGag){
         if(err){
             res.redirect('/gags')
         } else {
