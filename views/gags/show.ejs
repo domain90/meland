@@ -28,9 +28,9 @@
                 <span class="glyphicon glyphicon-arrow-down">
               </div>
               <% if(currentUser && gag.author.id.equals(currentUser._id)) { %>
-              <div class="btn btn-default">
-                <a href="<%= gag['id'] %>/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-              </div>
+              <a href="<%= gag['id'] %>/edit" class="btn btn-default">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </a>
               <div class="btn btn-default">
                 <form method="POST" id="deleteForm" action="/gags/<%= gag._id %>?_method=DELETE" >
                    <i class="fa fa-trash" aria-hidden="true"></i>
