@@ -154,7 +154,7 @@ router.put("/:id", function(req, res){
 
     var newGag = {title: title, image: image, category: category};
     //Find and update the right campground
-     Gag.findByIdAndUpdate(req.params.id, newGag).exec(function(err, updatedGag){
+    Gag.findByIdAndUpdate(req.params.id, newGag).exec(function(err, updatedGag){
         if(err){
             res.redirect('/gags')
         } else {

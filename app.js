@@ -14,6 +14,7 @@ var exsession = require("express-session");
 require('./config/passport.js')(passport);
 var Promise = require("bluebird");
 var mongodb = require('mongodb');
+var methodOverride = require("method-override");
 /////////////////////////////////////
 //Server Config
 /////////////////////////////////////
@@ -22,12 +23,11 @@ mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/yelp_camp_v6")
 // mongodb.MongoClient.connect(uri, function (err, db) {
 //     /* adventure! */
 // });
-
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
-
+app.use(methodOverride("_method"));
 /////////////////////////////////////
 //Require Routes
 /////////////////////////////////////
