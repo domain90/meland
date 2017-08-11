@@ -27,16 +27,15 @@
               <div class="upvote btn btn-default">
                 <span class="glyphicon glyphicon-arrow-down">
               </div>
-              <div class="upvote btn btn-default">
-                <span class="glyphicon glyphicon-option-horizontal">
-              </div>
               <% if(currentUser && gag.author.id.equals(currentUser._id)) { %>
-              <div class="upvote btn btn-default">
+              <div class="btn btn-default">
                 <a href="<%= gag['id'] %>/edit"></a><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
               </div>
-              <form method="POST" id="deleteForm" action="/gags/<%= gag._id %>?_method=DELETE" >
-                 <i class="fa fa-trash" aria-hidden="true"></i>
-              </form>
+              <div class="btn btn-default">
+                <form method="POST" id="deleteForm" action="/gags/<%= gag._id %>?_method=DELETE" >
+                   <i class="fa fa-trash" aria-hidden="true"></i>
+                </form>
+              </div>
               <% } %>
           </div>
           <div class="right-floated">
