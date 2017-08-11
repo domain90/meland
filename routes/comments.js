@@ -6,17 +6,7 @@ var Reply   = require("../models/reply.js");
 //====================================
 //COMMENTS
 //====================================
-// router.post("/gags/:id", function(req, res){
-//     Gag.findById(req.params.id, function(err, gag){
-//         if(err){
-//             console.log(err);
-//         } else {
-//             console.log("It works");
-//         }
-//     })
-// })
-
-
+//POST COMMENT
 router.post("/gags/:id", isLoggedIn, function(req, res) {
     //Lookup campground using ID
     Gag.findByIdAndUpdate(req.params.id, { $inc: {commentsNumber: 1} }).exec (function(err, gag){
@@ -47,27 +37,10 @@ router.post("/gags/:id", isLoggedIn, function(req, res) {
               // res.redirect("/gags/" + gag._id);
             }
           })
-          // var newComment = new Comment();
-          // newComment.author.id       =req.user.id;
-          // newComment.author.username =req.user.username;
-          // newComment.author.avatar   =req.user.avatar;
-          // newComment.text            =req.body.comment.text;
-         
-          // gag.comments.push(newComment);
-          // gag.save();
-
-          // newComment.save(function(err, newComment){
-          //   if(err){
-          //     console.log(err)
-          //   } else {
-          //     // res.json(newComment);
-          //     res.redirect("/gags/" + gag._id);
-          //   }
-          // });
         }
      })
 })
-
+//POST REPLY
 router.post("/gags/:id/comment/:idcomment/reply", function(req, res){
   Gag.findByIdAndUpdate(req.params.id, { $inc: {commentsNumber: 1} }).exec (function(err, gag){
       if(err){
@@ -101,6 +74,28 @@ router.post("/gags/:id/comment/:idcomment/reply", function(req, res){
             })
           }
         })
+      }
+    })
+})
+//EDIT
+router.post("/gags/:id/comment/:idcomment/edit", function(req, res){
+  Comment.findById(req.params.idcomment).exec(function(err, foundComment){
+      if(err){
+         res.redirect("/gags/:id")
+      } else {
+         res.render("/comment/edit", {gag_id: req.params.id, comment: foundComment})
+      }
+    })
+})
+
+//UPDATE
+router.put("/gags/:id/comment/:idcomment/", function(req, res){
+
+  Comment.findByIdAndUpdate(req.params.idcomment).exec(function(err, updatedcomment){
+      if(err){
+         res.redirect("/gags/:id")
+      } else {
+         res.render("/gags/:id")
       }
     })
 })
