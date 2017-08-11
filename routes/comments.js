@@ -83,7 +83,7 @@ router.post("/gags/:id/:idcomment/edit", function(req, res){
       if(err){
          res.redirect("/gags/:id")
       } else {
-         res.render("/comment/edit", {gag_id: req.params.id, comment: foundComment})
+         res.render("/comments/edit", {gag_id: req.params.id, comment: foundComment})
       }
     })
 })
