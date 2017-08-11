@@ -5,7 +5,7 @@
     <div class="row">
         <h1 style="text-align: center;">Edita tu contenido</h1>
         <div style="width: 30%; margin: 30px auto;">
-             <form method="POST" action="/<%= gag.id %>?_method=PUT" enctype="multipart/form-data"  style="width: 80%; margin: 30px auto;">
+             <form method="POST" action="/<%= gag.id %>?_method=PUT" style="width: 80%; margin: 30px auto;">
                 <div class="form-group">
                     <label for="">Titulo</label>
                     <input class="form-control" type="text" name="gag[title]" value=<%= gag.title %>>
