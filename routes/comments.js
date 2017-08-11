@@ -94,7 +94,7 @@ router.put("/gags/:id/:idcomment/", function(req, res){
       if(err){
          res.redirect("back")
       } else {
-         res.render("/gags/" + req.params.id)
+         res.render("gags/" + req.params.id)
       }
     })
 })
