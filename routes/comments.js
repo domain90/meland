@@ -89,16 +89,27 @@ router.get("/gags/:id/:idcomment/edit", function(req, res){
 })
 
 //UPDATE
-router.put("/gags/:id/:idcomment/", function(req, res){
+router.put("/gags/:id/:idcomment", function(req, res){
   Comment.findByIdAndUpdate(req.params.idcomment, req.body.comment).exec(function(err, updatedcomment){
       if(err){
          res.redirect("back")
       } else {
-         res.redirect("gags/" + req.params.id)
+         res.redirect("back")
       }
     })
 })
 
+//DESTROY 
+router.delete("/gags/:id/:idcomment", function(req, res){
+     Gag.findByIdAndRemove(req.params.id).exec(function(err){
+        if(err){
+            res.redirect('back')
+        } else {
+            //show more info in a template
+            res.redirect('back');
+        }
+     })
+})
 
 //Middleware 
 function isLoggedIn(req, res, next) {
