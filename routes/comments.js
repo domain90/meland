@@ -92,9 +92,9 @@ router.get("/gags/:id/:idcomment/edit", function(req, res){
 router.put("/gags/:id/:idcomment/", function(req, res){
   Comment.findByIdAndUpdate(req.params.idcomment, req.body.comment).exec(function(err, updatedcomment){
       if(err){
-         res.redirect("/gags/:id")
+         res.redirect("back")
       } else {
-         res.render("/gags/:id")
+         res.render("/gags/" + req.params.id)
       }
     })
 })
