@@ -78,7 +78,7 @@ router.post("/gags/:id/comment/:idcomment/reply", function(req, res){
     })
 })
 //EDIT
-router.post("/gags/:id/:idcomment/edit", function(req, res){
+router.get("/gags/:id/:idcomment/edit", function(req, res){
   Comment.findById(req.params.idcomment).exec(function(err, foundComment){
       if(err){
          res.redirect("/gags/:id")
