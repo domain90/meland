@@ -3,12 +3,13 @@ var router = express.Router({mergeParams: true});
 var Gag = require("../models/gags.js");
 var Comment = require("../models/comments.js");
 var Reply   = require("../models/reply.js");
+var middleware = require("../middleware/index.js")
 //====================================
 //COMMENTS
 //====================================
 //POST COMMENT
-router.post("/gags/:id", isLoggedIn, function(req, res) {
-    //Lookup campground using ID
+router.post("/gags/:id", middleware.isLoggedIn, function(req, res) {
+    //Lookup gag using ID
     Gag.findByIdAndUpdate(req.params.id, { $inc: {commentsNumber: 1} }).exec (function(err, gag){
         if(err){
            console.log(err);
@@ -41,7 +42,7 @@ router.post("/gags/:id", isLoggedIn, function(req, res) {
      })
 })
 //POST REPLY
-router.post("/gags/:id/comment/:idcomment/reply", function(req, res){
+router.post("/gags/:id/comment/:idcomment/reply", middleware.isLoggedIn, function(req, res){
   Gag.findByIdAndUpdate(req.params.id, { $inc: {commentsNumber: 1} }).exec (function(err, gag){
       if(err){
          console.log(err);
@@ -78,7 +79,7 @@ router.post("/gags/:id/comment/:idcomment/reply", function(req, res){
     })
 })
 //EDIT
-router.get("/gags/:id/:idcomment/edit", function(req, res){
+router.get("/gags/:id/:idcomment/edit", middleware.checkCommentOwnership,function(req, res){
   Comment.findById(req.params.idcomment).exec(function(err, foundComment){
       if(err){
          res.redirect("/gags/:id")
@@ -89,7 +90,7 @@ router.get("/gags/:id/:idcomment/edit", function(req, res){
 })
 
 //UPDATE
-router.put("/gags/:id/:idcomment", function(req, res){
+router.put("/gags/:id/:idcomment", middleware.checkCommentOwnership,function(req, res){
   Comment.findByIdAndUpdate(req.params.idcomment, req.body.comment).exec(function(err, updatedcomment){
       if(err){
          res.redirect("back")
@@ -100,7 +101,7 @@ router.put("/gags/:id/:idcomment", function(req, res){
 })
 
 //DESTROY 
-router.delete("/gags/:id/:idcomment", function(req, res){
+router.delete("/gags/:id/:idcomment", middleware.checkCommentOwnership,function(req, res){
      Gag.findByIdAndRemove(req.params.id).exec(function(err){
         if(err){
             res.redirect('back')
