@@ -158,7 +158,7 @@ router.put("/:id", function(req, res){
 })
 
 //DESTROY 
-router.delete("/:id", function(req, res){
+router.delete("/gags/:id", function(req, res){
      Gag.findByIdAndRemove(req.params.id).exec(function(err){
         if(err){
             res.redirect('/gags')
