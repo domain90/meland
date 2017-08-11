@@ -19,25 +19,6 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-//INDEX
-router.get("/", function(req, res){
-    //Get campgrounds
-    Gag.find({}, function(err, allgags){
-        if(err){
-            console.log("An error has occur");
-            console.log(err);
-        } else {
-            res.render("gags/index", {Gags: allgags, currentUser: req.user});
-        }
-    })
-})
-
-//NEW - show form to add
-router.get("/new", isLoggedIn, function(req, res) {
-    res.render("gags/new");
-})
-
-
 ///////////////////////
 //Classify the content
 ///////////////////////
@@ -74,11 +55,28 @@ router.get("/mujeres", function(req, res){
     })
 })
 
+///////////////////////
+//REST
+///////////////////////
+//INDEX
+router.get("/", function(req, res){
+    //Get campgrounds
+    Gag.find({}, function(err, allgags){
+        if(err){
+            console.log("An error has occur");
+            console.log(err);
+        } else {
+            res.render("gags/index", {Gags: allgags, currentUser: req.user});
+        }
+    })
+})
 
+//NEW - show form to add
+router.get("/new", middleware.isLoggedIn, function(req, res) {
+    res.render("gags/new");
+})
 
-
-app.use(isLoggedIn);
-
+app.use(middleware.isLoggedIn);
 //CREATE
 router.post("/", upload.single('gag'), function(req, res){
     //get data from form and add to array
@@ -135,7 +133,7 @@ router.get("/gags/:id", function(req, res) {
 })
 
 //EDIT 
-router.get("/gags/:id/edit", function(req, res){
+router.get("/gags/:id/edit", middleware.checkGagOwnership,function(req, res){
     Gag.findById(req.params.id).exec(function(err, foundGag){
         res.render("gags/edit", {gag: foundGag});
     })
@@ -143,7 +141,7 @@ router.get("/gags/:id/edit", function(req, res){
 
 
 //UPDATE
-router.put("/:id", function(req, res){
+router.put("/:id", middleware.checkGagOwnership,function(req, res){
     // var title    = req.body.title;
     // var category = req.body.category;
     // var newGag = {title: title, category: category};
@@ -159,7 +157,7 @@ router.put("/:id", function(req, res){
 })
 
 //DESTROY 
-router.delete("/gags/:id", function(req, res){
+router.delete("/gags/:id", middleware.checkGagOwnership, function(req, res){
      Gag.findByIdAndRemove(req.params.id).exec(function(err){
         if(err){
             res.redirect('/gags')
@@ -184,18 +182,17 @@ router.get('/auth/facebook/callback',
     }));
 
 // =====================================
-// Google ROUTES =====================
+// GOOGLE ROUTES =====================
 // =====================================
 // route for Google authentication and login
 router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
-    // the callback after google has authenticated the user
-    router.get('/auth/google/callback',
-            passport.authenticate('google', {
-                    successRedirect : '/',
-                    failureRedirect : '/'
-    }));
-
+// the callback after google has authenticated the user
+router.get('/auth/google/callback',
+        passport.authenticate('google', {
+                successRedirect : '/',
+                failureRedirect : '/'
+}));
 
 
 //Middleware 
