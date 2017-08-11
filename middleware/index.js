@@ -1,6 +1,6 @@
 var Gag = require("../models/gags.js");
 var Comment = require("../models/comments.js");
-var middlerwareObj = {};
+var middlewareObj = {};
 
 middlewareObj.checkGagOwnership = function(req, res, next) {
       if(req.isAuthenticated()){
