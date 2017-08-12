@@ -194,12 +194,4 @@ router.get('/auth/google/callback',
                 failureRedirect : '/'
 }));
 
-
-//Middleware 
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()){
-        return next();
-    }
-}
-
 module.exports = router;
