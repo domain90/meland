@@ -15,7 +15,7 @@ require('./config/passport.js')(passport);
 var Promise               = require("bluebird");
 var mongodb               = require('mongodb');
 var methodOverride        = require("method-override");
-var flash                 = require("connet-flash");
+var flash                 = require("connect-flash");
 /////////////////////////////////////
 //Server Config
 /////////////////////////////////////
