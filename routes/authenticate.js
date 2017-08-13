@@ -29,7 +29,7 @@ router.get("/register",function(req, res) {
 
 //NEW
 router.post("/register", upload.single('avatar'), function(req, res, next) {
-    var newUser = new User({ username: req.body.username });
+    var newUser = new User({ username: req.body.username, email: req.body.email });
     User.register( newUser, req.body.password, function(err, user){ 
         if(err){
             console.log(err);
