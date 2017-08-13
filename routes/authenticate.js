@@ -27,7 +27,7 @@ router.get("/register",function(req, res) {
     res.render("register");
 })
 
-//Logic
+//NEW
 router.post("/register", upload.single('avatar'), function(req, res, next) {
     var avatar = "/uploads/" + req.file.filename;
     var newUser = new User({ username: req.body.username, avatar: avatar });
@@ -37,6 +37,7 @@ router.post("/register", upload.single('avatar'), function(req, res, next) {
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function(){
+            req.flash("success", "Bienvenido " + user.username)
             res.redirect("/");
         });
     });
