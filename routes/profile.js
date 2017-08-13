@@ -36,9 +36,9 @@ router.put("/:id", function(req, res) {
     var newPassword = req.body.password;
     var avatar      = "";
     if(!req.file){
-        var image = req.body.url
+        var avatar = req.body.url
     } else {
-        var image = "/uploads/" + req.file.filename;
+        var avatar = "/uploads/" + req.file.filename;
     }
     var updateProfile = { username: newUsername, email: newEmail, password: newPassword, avatar: avatar };
 
