@@ -68,7 +68,7 @@ app.use(function(req, res, next){
 app.use(authenticateRoutes);
 app.use('/', gagsRoutes);
 app.use(commentsRoutes);
-app.use('/profile', profile);
+app.use(profile);
 
 /////////////////////////////////////
 //Listen Event

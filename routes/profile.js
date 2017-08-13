@@ -22,14 +22,14 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 //SHOW & EDIT- Display User Profile
-router.get("/:id/edit", function(req, res) {
+router.get("/profile/:id", function(req, res) {
     //Find the current user
     res.render("profile", {currentUser: req.user} );
     console.log(req.user)
 })
 
 //UPDATE - Update User Profile
-router.put("/:id", function(req, res) {
+router.put("/profile/:id", upload.single('profile'),function(req, res) {
     //Capture new data
     var newUsername = req.body.username;
     var newEmail    = req.body.email;
@@ -46,12 +46,9 @@ router.put("/:id", function(req, res) {
     	if(err){
     		console.log(err)
     	} else {
-    		res.redirect("profile")
-    		console.log(newUsername)
-    		console.log(newEmail)
+    		res.redirect("back")
     		console.log(updateProfile)
-    		console.log(req.body)
-    		console.log(req.params.id)
+    		console.log(req.file);
     	}
     })
     
