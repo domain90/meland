@@ -7,7 +7,6 @@ var userSchema = new mongoose.Schema({
     info: {type: String, default: Date.now()},
     avatar: String,
     email: String,
-
     facebook         : {
         id           : String,
         token        : String

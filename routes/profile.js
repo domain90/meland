@@ -21,23 +21,28 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-//SHOW - Display User Profile
-router.get("/", function(req, res) {
+//SHOW & EDIT- Display User Profile
+router.get("/:id/edit", function(req, res) {
     //Find the current user
     res.render("profile", {currentUser: req.user} );
     console.log(req.user)
 })
 
 //UPDATE - Update User Profile
-router.post("/", function(req, res) {
+router.put("/:id", function(req, res) {
     //Capture new data
     var newUsername = req.body.username;
     var newEmail    = req.body.email;
-    var userId      = currentUser._id;
+    var newPassword = req.body.password;
+    var avatar      = "";
+    if(!req.file){
+        var image = req.body.url
+    } else {
+        var image = "/uploads/" + req.file.filename;
+    }
+    var updateProfile = { username: newUsername, email: newEmail, password: newPassword, avatar: avatar };
 
-    var updateProfile = { username: newUsername, email: newEmail };
-
-    User.findByIdAndUpdate(userId, updateProfile, function(err, update){
+    User.findByIdAndUpdate(req.params.id, updateProfile, function(err, update){
     	if(err){
     		console.log(err)
     	} else {

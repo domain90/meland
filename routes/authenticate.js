@@ -29,8 +29,7 @@ router.get("/register",function(req, res) {
 
 //NEW
 router.post("/register", upload.single('avatar'), function(req, res, next) {
-    var avatar = "/uploads/" + req.file.filename;
-    var newUser = new User({ username: req.body.username, avatar: avatar });
+    var newUser = new User({ username: req.body.username });
     User.register( newUser, req.body.password, function(err, user){ 
         if(err){
             console.log(err);
