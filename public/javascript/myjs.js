@@ -190,7 +190,7 @@ $(function() {
 		        action_type: 'og.shares',
 		        action_properties: JSON.stringify({
 		            object : {
-		               'og:url': gagLink,
+		               'og:url': "https://meland.herokuapp.com" + gagLink,
 		               'og:title': gagTitle,
 		               'og:description': 'Haz reir a tus amigos!',
 		               'og:image': gagPicture
