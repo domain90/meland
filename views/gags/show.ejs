@@ -139,14 +139,16 @@
 <script type="text/javascript">
   document.getElementById('share_button').onclick = function() {
   FB.ui({
-    method: 'share',
-    mobile_iframe: true,
-    href: url_base,
-    name: "<%= gag["title"] %>",
-    caption: 'Top 3 reasons why you should care about your finance',
-    description: "Para mas memes entra a meland.com",
-    picture: "<%= gag['image'] %>",
-    message: "Hola"
+   method: 'share_open_graph',
+        action_type: 'og.shares',
+        action_properties: JSON.stringify({
+            object : {
+               'og:url': BASE_URL,
+               'og:title': <%= gag["title"] %>,
+               'og:description': 'Hola',
+               'og:og:image:width': '2560',
+               'og:image:height': '960',
+               'og:image': <%= gag['image'] %>
   }, function(response){});
 }
 </script>
