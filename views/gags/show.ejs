@@ -144,11 +144,9 @@
         action_properties: JSON.stringify({
             object : {
                'og:url': BASE_URL,
-               'og:title': <%= gag["title"] %>,
+               'og:title': "<%= gag["title"] %>",
                'og:description': 'Hola',
-               'og:og:image:width': '2560',
-               'og:image:height': '960',
-               'og:image': <%= gag['image'] %>
+               'og:image': "<%= gag['image'] %>"
   }, function(response){});
 }
 </script>
