@@ -143,7 +143,7 @@
         action_type: 'og.shares',
         action_properties: JSON.stringify({
             object : {
-               'og:url': "https://meland.herokuapp.com/gags/" + <%= gag["id"] %>+ ,
+               'og:url': "https://meland.herokuapp.com/gags/" + "<%= gag['id'] %>"+ ,
                'og:title': "<%= gag["title"] %>",
                'og:description': 'Hola',
                'og:image': "<%= gag['image'] %>"
