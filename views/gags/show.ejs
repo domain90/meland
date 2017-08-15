@@ -142,10 +142,10 @@
     method: 'share',
     mobile_iframe: true,
     href: url_base,
-    name: <%= gag["title"] %>,
+    name: "<%= gag["title"] %>",
     caption: 'Top 3 reasons why you should care about your finance',
     description: "Para mas memes entra a meland.com",
-    picture: <%= gag['image'] %>,
+    picture: "<%= gag['image'] %>",
     message: "Hola"
   }, function(response){});
 }
