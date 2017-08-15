@@ -160,7 +160,7 @@ $(function() {
 	/////////////////////////
 	////////FB-SHARE/////////
 	/////////////////////////
-	$('.btn-facebook').click(function(e){
+	$('#share_button').click(function(e){
 
 		e.preventDefault();
 
@@ -176,13 +176,14 @@ $(function() {
 		FB.ui(
 		{
 			method: 'share',
+			mobile_iframe: true,
 			name: gagTitle,
-			link: 'https://meland.herokuapp.com' + gagLink,
+			href: 'https://meland.herokuapp.com' + gagLink,
 			picture: gagPicture,
 			caption: 'Top 3 reasons why you should care about your finance',
 			description: "What happens when you don't take care of your finances? Just look at our country -- you spend irresponsibly, get in debt up to your eyeballs, and stress about how you're going to make ends meet. The difference is that you don't have a glut of taxpayers…",
 			message: ""
-		});
+		}, function(response){});
 
 	})
 })
