@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <Title> Meland - Donde los meme viven </Title>
+
+
 <% include ../partials/header %>
 
 <div class="container">
@@ -27,9 +33,9 @@
           <div class="downvote btn btn-default">
             <span class="glyphicon glyphicon-arrow-down">
           </div>
-          <div class="upvote btn btn-default">
-            <span class="glyphicon glyphicon-option-horizontal">
-          </div>
+          <a href="/gags/<%= gag['_id'] %>" class="comment btn btn-default">
+            <i class="fa fa-commenting" aria-hidden="true"></i>
+          </a>
         </div>
       </div>
       <hr>  
