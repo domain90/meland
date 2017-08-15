@@ -194,7 +194,9 @@ $(function() {
 		               'og:title': gagTitle,
 		               'og:description': 'Haz reir a tus amigos!',
 		               'og:image': gagPicture
-		  }}), function(response){}});
+		  }}), function(response){
+		        	window.close();
+		        }});
 		
 
 	})
