@@ -190,9 +190,9 @@ $(function() {
 		        action_type: 'og.shares',
 		        action_properties: JSON.stringify({
 		            object : {
-		               'og:url': "https://meland.herokuapp.com/gags/" + "<%= gag['id'] %>" ,
+		               'og:url': gagLink,
 		               'og:title': gagTitle,
-		               'og:description': 'Hola',
+		               'og:description': 'Haz reir a tus amigos!',
 		               'og:image': gagPicture
 		  }}), function(response){}});
 		
