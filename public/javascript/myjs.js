@@ -1,10 +1,5 @@
 $(function() {
 
-	// $('.body-half a').click(function() {
-	// 	var title = "Hello, the test worked!"
-    //  $('.modal-title').html(title);
-	// });
-
 	/////////////////
 	/////VOTING//////
 	/////////////////
@@ -167,23 +162,6 @@ $(function() {
 		var gagLink    = $(this).attr('href');
 		var gagTitle   = $('.head-title').find('h3').text();
 		var gagPicture = $('.content-img').find('img').attr('src');
-		// $(this).parents(".content-img").sibligs("a").attr('href');
-		// $("a[href='http://www.google.com/']").attr('href', 'http://www.live.com/')
-		// console.log(gagLink);
-		// console.log(gagTitle);
-		// console.log(gagPicture);
-
-		// FB.ui(
-		// {
-		// 	method: 'share',
-		// 	mobile_iframe: true,
-		// 	name: gagTitle,
-		// 	href: 'https://meland.herokuapp.com' + gagLink,
-		// 	picture: gagPicture,
-		// 	caption: 'Top 3 reasons why you should care about your finance',
-		// 	description: "What happens when you don't take care of your finances? Just look at our country -- you spend irresponsibly, get in debt up to your eyeballs, and stress about how you're going to make ends meet. The difference is that you don't have a glut of taxpayers…",
-		// 	message: ""
-		// }, function(response){});
 
 		FB.ui({
 		   method: 'share_open_graph',
@@ -198,6 +176,115 @@ $(function() {
 		        	window.close();
 		        }});
 		
+	/////////////////////////
+	/////UPLOAD-PROGRESS/////
+	/////////////////////////	
+	// $('#file-upload').addEventListener('change', function (event) {
+	// 	event.preventDefault();
+
+	// 	var postUrl = window.location.href;
+
+	// 	var formData = new FormData($('#file-upload')[0])
+
+	// 	$.ajax({
+	// 		xhr: function() {
+	// 			var xhr = new window.XMLHttpRequest();
+
+	// 			xhr.upload.addEventListener('progress', function(e) {
+
+	// 				if (e.lengthComputable) {
+	// 					console.log('Bytes Loaded' + e.loaded);
+	// 					console.log('Total Size:' + e.total);
+	// 					console.log('Percentage Uploaded:' + e.loaded / e.total);
+
+	// 					var percent = Math.round(e.loaded / e.total * 100);
+	// 				}
+
+	// 			});
+
+	// 			return xhr;
+
+
+	// 		},
+	// 		type: 'POST',
+	// 		url:  postUrl,
+	// 		data: formData,
+	// 		processData: false,
+	// 		contentType: false,
+	// 		success: function(){
+
+	// 		}
+	// 	})	
+		
+	// })
+
+	var fileInput, uploadProgress, message;
+
+	function init() {
+	    var fileInput = document.getElementById('file-upload');
+	    var uploadProgress = document.getElementById('upload-progress');
+	    var message = document.getElementById('message');
+
+	    fileInput.addEventListener('change', function () {
+	        var xhr = new XMLHttpRequest(),
+	            fd = new FormData();
+
+	        fd.append('file', fileInput.files[0]);
+
+	        xhr.upload.onloadstart = function (e) {
+	            uploadProgress.classList.add('visible');
+	            uploadProgress.value = 0;
+	            uploadProgress.max = e.total;
+	            message.textContent = 'Subiendo...';
+	            fileInput.disabled = true;
+	        };
+
+	        xhr.upload.onprogress = function (e) {
+	            uploadProgress.value = e.loaded;
+	            uploadProgress.max = e.total;
+	        };
+
+	        xhr.upload.onloadend = function (e) {
+	            uploadProgress.classList.remove('visible');
+	            message.textContent = 'Terminado!';
+	            fileInput.disabled = false;
+	        };
+
+	        xhr.onload = function () {
+	            message.textContent = 'Server says: "' + xhr.responseText + '"';
+	        };
+
+	        xhr.open('POST', 'profile.js' ,true);
+	        xhr.send(fd);
+	    });
+	}
+
+	init();
+	// var formData = new FormData();
+	// var file = document.getElementById('#file-upload').files[0];
+	// formData.append('myFile', file);
+	// var xhr = new XMLHttpRequest();
+
+	// // your url upload
+	// xhr.open('post', '/urluploadhere', true);
+
+	// xhr.upload.onprogress = function(e) {
+	//   if (e.lengthComputable) {
+	//     var percentage = (e.loaded / e.total) * 100;
+	//     console.log(percentage + "%");
+	//   }
+	// };
+
+	// xhr.onerror = function(e) {
+	//   console.log('Error');
+	//   console.log(e);
+	// };
+	// xhr.onload = function() {
+	//   console.log(this.statusText);
+	// };
+
+	// xhr.send(formData);
 
 	})
 })
+

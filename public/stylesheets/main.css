@@ -337,6 +337,15 @@ label {
 .profile-container h2 {
 	margin-bottom: 20px;
 }
+.profile-container .form-group {
+	overflow: hidden;
+}
+#upload-progress {
+	visibility: hidden;
+}
+#upload-progress.visibility {
+	visibility: visible;
+}
 
 /******************************************************/
 /******************************************************/

@@ -36,7 +36,7 @@ router.put("/profile/:id", upload.single('profile'),function(req, res) {
     var newPassword = req.body.password;
     var avatar      = "";
     if(!req.file){
-        var avatar = req.body.url
+        var avatar = currentUser.avatar;
     } else {
         var avatar = "/uploads/" + req.file.filename;
     }

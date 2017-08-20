@@ -16,6 +16,10 @@
 				    <img src="<%= currentUser.avatar %>" alt="">
 				</label>
 				<input id="file-upload" type="file" name="profile" />
+				<p>
+                	<progress id="upload-progress"></progress>
+	            </p>
+	            <p id="message"></p>
 			</div>
 			<div class="form-group">
 				<label for="">Usuario</label>
@@ -23,7 +27,7 @@
 			</div>
 			<div class="form-group">
 				<label for="">Contraseña</label>
-			    <input type="text" name="password" class="form-control" >
+			    <input type="password" name="password" class="form-control" >
 			</div>
 			<div class="form-group">
 				<label for="">Email</label>
