@@ -343,7 +343,7 @@ label {
 #upload-progress {
 	visibility: hidden;
 }
-#upload-progress.visibility {
+#upload-progress.visible {
 	visibility: visible;
 }
 

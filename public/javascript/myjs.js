@@ -174,7 +174,7 @@ $(function() {
 		               'og:image': gagPicture
 		  }}), function(response){
 		        	window.close();
-		        }});
+	}});
 		
 	/////////////////////////
 	/////UPLOAD-PROGRESS/////
@@ -218,48 +218,7 @@ $(function() {
 		
 	// })
 
-	var fileInput, uploadProgress, message;
-
-	function init() {
-	    var fileInput = document.getElementById('file-upload');
-	    var uploadProgress = document.getElementById('upload-progress');
-	    var message = document.getElementById('message');
-
-	    fileInput.addEventListener('change', function () {
-	        var xhr = new XMLHttpRequest(),
-	            fd = new FormData();
-
-	        fd.append('file', fileInput.files[0]);
-
-	        xhr.upload.onloadstart = function (e) {
-	            uploadProgress.classList.add('visible');
-	            uploadProgress.value = 0;
-	            uploadProgress.max = e.total;
-	            message.textContent = 'Subiendo...';
-	            fileInput.disabled = true;
-	        };
-
-	        xhr.upload.onprogress = function (e) {
-	            uploadProgress.value = e.loaded;
-	            uploadProgress.max = e.total;
-	        };
-
-	        xhr.upload.onloadend = function (e) {
-	            uploadProgress.classList.remove('visible');
-	            message.textContent = 'Terminado!';
-	            fileInput.disabled = false;
-	        };
-
-	        xhr.onload = function () {
-	            message.textContent = 'Server says: "' + xhr.responseText + '"';
-	        };
-
-	        xhr.open('POST', 'profile.js' ,true);
-	        xhr.send(fd);
-	    });
-	}
-
-	init();
+	
 	// var formData = new FormData();
 	// var file = document.getElementById('#file-upload').files[0];
 	// formData.append('myFile', file);
@@ -284,7 +243,50 @@ $(function() {
 	// };
 
 	// xhr.send(formData);
+// 	var fileInput, uploadProgress, message;
+
+// 		function init() {
+// 		    var fileInput = document.getElementById('file-upload');
+// 		    var uploadProgress = document.getElementById('upload-progress');
+// 		    var message = document.getElementById('message');
+
+// 		    fileInput.addEventListener('change', function () {
+// 		        var xhr = new XMLHttpRequest(),
+// 		            fd = new FormData();
+
+// 		        fd.append('file', fileInput.files[0]);
+
+// 		        xhr.upload.onloadstart = function (e) {
+// 		            uploadProgress.classList.add('visible');
+// 		            uploadProgress.value = 0;
+// 		            uploadProgress.max = e.total;
+// 		            message.textContent = 'Subiendo...';
+// 		            fileInput.disabled = true;
+// 		        };
+
+// 		        xhr.upload.onprogress = function (e) {
+// 		            uploadProgress.value = e.loaded;
+// 		            uploadProgress.max = e.total;
+// 		        };
+
+// 		        xhr.upload.onloadend = function (e) {
+// 		            uploadProgress.classList.remove('visible');
+// 		            message.textContent = 'Terminado!';
+// 		            fileInput.disabled = false;
+// 		        };
+
+// 		        xhr.onload = function () {
+// 		            message.textContent = 'Server says: "' + xhr.responseText + '"';
+// 		        };
+
+// 		        xhr.open('POST', 'profile.js' ,true);
+// 		        xhr.send(fd);
+// 		    });
+// 		}
+
+// init();
 
 	})
 })
+
 
