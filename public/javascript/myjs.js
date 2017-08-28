@@ -176,117 +176,92 @@ $(function() {
 		        	window.close();
 	}});
 		
-	/////////////////////////
-	/////UPLOAD-PROGRESS/////
-	/////////////////////////	
-	// $('#file-upload').addEventListener('change', function (event) {
-	// 	event.preventDefault();
-
-	// 	var postUrl = window.location.href;
-
-	// 	var formData = new FormData($('#file-upload')[0])
-
-	// 	$.ajax({
-	// 		xhr: function() {
-	// 			var xhr = new window.XMLHttpRequest();
-
-	// 			xhr.upload.addEventListener('progress', function(e) {
-
-	// 				if (e.lengthComputable) {
-	// 					console.log('Bytes Loaded' + e.loaded);
-	// 					console.log('Total Size:' + e.total);
-	// 					console.log('Percentage Uploaded:' + e.loaded / e.total);
-
-	// 					var percent = Math.round(e.loaded / e.total * 100);
-	// 				}
-
-	// 			});
-
-	// 			return xhr;
-
-
-	// 		},
-	// 		type: 'POST',
-	// 		url:  postUrl,
-	// 		data: formData,
-	// 		processData: false,
-	// 		contentType: false,
-	// 		success: function(){
-
-	// 		}
-	// 	})	
-		
-	// })
-
 	
-	// var formData = new FormData();
-	// var file = document.getElementById('#file-upload').files[0];
-	// formData.append('myFile', file);
-	// var xhr = new XMLHttpRequest();
-
-	// // your url upload
-	// xhr.open('post', '/urluploadhere', true);
-
-	// xhr.upload.onprogress = function(e) {
-	//   if (e.lengthComputable) {
-	//     var percentage = (e.loaded / e.total) * 100;
-	//     console.log(percentage + "%");
-	//   }
-	// };
-
-	// xhr.onerror = function(e) {
-	//   console.log('Error');
-	//   console.log(e);
-	// };
-	// xhr.onload = function() {
-	//   console.log(this.statusText);
-	// };
-
-	// xhr.send(formData);
-// 	var fileInput, uploadProgress, message;
-
-// 		function init() {
-// 		    var fileInput = document.getElementById('file-upload');
-// 		    var uploadProgress = document.getElementById('upload-progress');
-// 		    var message = document.getElementById('message');
-
-// 		    fileInput.addEventListener('change', function () {
-// 		        var xhr = new XMLHttpRequest(),
-// 		            fd = new FormData();
-
-// 		        fd.append('file', fileInput.files[0]);
-
-// 		        xhr.upload.onloadstart = function (e) {
-// 		            uploadProgress.classList.add('visible');
-// 		            uploadProgress.value = 0;
-// 		            uploadProgress.max = e.total;
-// 		            message.textContent = 'Subiendo...';
-// 		            fileInput.disabled = true;
-// 		        };
-
-// 		        xhr.upload.onprogress = function (e) {
-// 		            uploadProgress.value = e.loaded;
-// 		            uploadProgress.max = e.total;
-// 		        };
-
-// 		        xhr.upload.onloadend = function (e) {
-// 		            uploadProgress.classList.remove('visible');
-// 		            message.textContent = 'Terminado!';
-// 		            fileInput.disabled = false;
-// 		        };
-
-// 		        xhr.onload = function () {
-// 		            message.textContent = 'Server says: "' + xhr.responseText + '"';
-// 		        };
-
-// 		        xhr.open('POST', 'profile.js' ,true);
-// 		        xhr.send(fd);
-// 		    });
-// 		}
-
-// init();
 
 	})
+	/////////////////////////
+	/////UPLOAD-PROGRESS/////
+	/////////////////////////
+	var reader;
+	var progress = document.querySelector('.percent');
+
+	function abortRead() {
+		reader.abort();
+	}
+
+	  function errorHandler(evt) {
+	    switch(evt.target.error.code) {
+	      case evt.target.error.NOT_FOUND_ERR:
+	        alert('File Not Found!');
+	        break;
+	      case evt.target.error.NOT_READABLE_ERR:
+	        alert('File is not readable');
+	        break;
+	      case evt.target.error.ABORT_ERR:
+	        break; // noop
+	      default:
+	        alert('An error occurred reading this file.');
+	    };
+	  }
+
+	  function updateProgress(evt) {
+	    // evt is an ProgressEvent.
+	    if (evt.lengthComputable) {
+	      var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+	      // Increase the progress bar length.
+	      if (percentLoaded < 100) {
+	        progress.style.width = percentLoaded + '%';
+	        progress.textContent = percentLoaded + '%';
+	      }
+	    }
+	  }
+
+	  function handleFileSelect(evt) {
+	   	    // Reset progress indicator on new file selection.
+		    progress.style.width = '0%';
+		    progress.textContent = '0%';
+		    document.getElementById('upload-status').textContent = '';
+
+		    reader = new FileReader();
+		    reader.onerror = errorHandler;
+		    reader.onprogress = updateProgress;
+		    reader.onabort = function(e) {
+		      alert('Cancelado');
+		    };
+		    reader.onloadstart = function(e) {
+		      document.getElementById('upload-status').textContent = 'Subiendo...';
+		    };
+		    reader.onload = function(e) {
+		      // Ensure that the progress bar displays 100% at the end.
+		      progress.style.width = '100%';
+		      progress.textContent = '100%';
+		      document.getElementById('upload-status').textContent = 'Terminado';
+		    };
+	 
+		    // Read in the image file as a binary string.
+		    reader.readAsBinaryString(evt.target.files[0]);
+	  }
+
+	  document.getElementById('file-upload-meme').addEventListener('change', handleFileSelect, false);
+
+	/////////////////////////
+	////////GIFPLAYER/////////
+	/////////////////////////
+	var gifs = document.querySelectorAll('#meme-content');
+	function gifs_src(target) {
+		return $(this).attr('src');
+	}
+	var gifs_srcs = $(gifs).map(gifs_src);
+	function addclass(target) {
+		if(this.indexOf('.gif')){
+			$(this).addClass('gifplayer');
+		}
+	}
+	var gifplayerTargets = $(gifs_srcs).map(addclass);
+	console.log(gifplayerTargets);
+	
+
+//END OF JQUERY
 })
 
 
