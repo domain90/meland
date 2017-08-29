@@ -13,8 +13,8 @@ $(function() {
 		$(this).children().toggleClass("downvoted");
 	})
 
-	///////////////////////
-	/////COMMENT-BOX/////
+	//////////////////////
+	/////COMMENT-BOX//////
 	//////////////////////
 	var $payload = $(".payload").clone().addClass('reply');
 
@@ -245,22 +245,37 @@ $(function() {
 	  document.getElementById('file-upload-meme').addEventListener('change', handleFileSelect, false);
 
 	/////////////////////////
-	////////GIFPLAYER/////////
+	////////GIFPLAYER////////
 	/////////////////////////
-	var gifs = document.querySelectorAll('#meme-content');
-	function gifs_src(target) {
-		return $(this).attr('src');
-	}
-	var gifs_srcs = $(gifs).map(gifs_src);
-	function addclass(target) {
-		if(this.indexOf('.gif')){
-			$(this).addClass('gifplayer');
+	// function gifenabler() {
+	// 	var gifs = document.querySelectorAll('#meme-content');
+	// 	console.log(gifs[1].src);
+	// 	for (var i = 0, len = gifs.length; i < len; i++) {
+	// 	  if(gifs[i].src.indexOf(".gif") > 0){
+	// 	  	// this.setAttribute('class', 'gifplayer');
+	// 	  	gifs[i].setAttribute('class', 'gifplayer');
+	// 	  	gifs[i].setAttribute('data-mode', 'video');
+	// 	  }
+	// 	}
+	// }
+	
+	// gifenabler();
+	// $('.gifplayer').gifplayer();
+
+	/////////////////////////
+	////////MP4PLAYER////////
+	/////////////////////////
+	function mp4enabler() {
+		var mp4elements = document.querySelectorAll('#meme-content');
+
+		for (var i = 0, len = mp4elements.length; i < len; i++) {
+		  if(mp4elements[i].src.indexOf('.mp4') > 0) {
+		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video autoplay controls loop")
+		  }
 		}
 	}
-	var gifplayerTargets = $(gifs_srcs).map(addclass);
-	console.log(gifplayerTargets);
 	
-
+	mp4enabler();
 //END OF JQUERY
 })
 
