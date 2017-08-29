@@ -192,7 +192,7 @@ $(function() {
 	  function errorHandler(evt) {
 	    switch(evt.target.error.code) {
 	      case evt.target.error.NOT_FOUND_ERR:
-	        alert('File Not Found!');
+	        alert('Archivo no fue encontrado');
 	        break;
 	      case evt.target.error.NOT_READABLE_ERR:
 	        alert('File is not readable');
@@ -270,7 +270,7 @@ $(function() {
 
 		for (var i = 0, len = mp4elements.length; i < len; i++) {
 		  if(mp4elements[i].src.indexOf('.mp4') > 0) {
-		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls loop")
+		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls")
 		  }
 		}
 	}
