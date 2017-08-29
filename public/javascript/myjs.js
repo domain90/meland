@@ -270,7 +270,7 @@ $(function() {
 
 		for (var i = 0, len = mp4elements.length; i < len; i++) {
 		  if(mp4elements[i].src.indexOf('.mp4') > 0) {
-		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video autoplay controls loop")
+		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls loop")
 		  }
 		}
 	}
