@@ -415,7 +415,7 @@ label {
 	padding: 15px;
 	padding-top: 0;s
 }
-.content-img img {
+#meme-content {
 	min-width: 0;
 	max-width: 100%;
 }
