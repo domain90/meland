@@ -26,19 +26,16 @@ $(function() {
 		// var dataId = $(this).parents(".comment-payload.col-md-12").data("commentId");
 		var $commentPayload = $(this).parents(".comment-payload.col-md-12");
 		var $commentRow = $(this).parents(".row.comments-row");
+		var $commentAuthor = $(this).parents(".comment-input-area").find("#comment-author").text();
 		var commentOn = false;
 
 		function addComment(){
 			$payload.appendTo($commentPayload);
-			// if(commentOn == false){
-			// 	$payload.clone().appendTo($commentRow);
-			// 	$commentOn = true;
-			// } else {
-			// 	$payload.appendTo($commentRow);
-			// }
+			$payload.append($commentAuthor);
 		}
 		addComment();
-		// console.log(dataId);
+		
+		
 	})
 
 	///////////////////////
@@ -80,7 +77,7 @@ $(function() {
 				              		'</div>' +
 				              		'<div class="comment-input-area">' + 
 						                '<div class="comment-meta">' + 
-						                  '<strong>' + comment.author.username + '</strong>' +
+						                  '<p id="comment-author"><strong>' + comment.author.username + '</strong></p>' +
 						                  '<span class="gag-votes">' + comment.votes + ' Votes</span>' +
 						                '</div>' + 
 				                	'<p class="comment-main">' + comment.text + '</p>' + 
@@ -114,7 +111,6 @@ $(function() {
 			 url: "/gags/" + articleId + "/comment/" + commentParent + "/reply",
 			 type: "POST",
 			 contentType: "application/json; charset=utf-8",
-
 			 data: JSON.stringify({ comment: {text: textVal } })
 			 }).done(function(result){
 			 	console.log(result);
@@ -133,7 +129,7 @@ $(function() {
 			              		'</div>' +
 			              		'<div class="comment-input-area">' + 
 					                '<div class="comment-meta">' + 
-					                  '<strong>' + comment.author.username + '</strong>' +
+					                  '<p id="comment-author"><strong>' + comment.author.username + '</strong></p>' +
 					                  '<span class="gag-votes">' + comment.votes + ' Votes</span>' +
 					                '</div>' + 
 			                	'<p class="comment-main">' + comment.text + '</p>' + 
@@ -270,12 +266,32 @@ $(function() {
 
 		for (var i = 0, len = mp4elements.length; i < len; i++) {
 		  if(mp4elements[i].src.indexOf('.mp4') > 0) {
-		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls")
+		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls muted")
 		  }
 		}
 	}
 	
 	mp4enabler();
+
+	// /////////////////////////
+	// //////VIDEO-CONTROL//////
+	// /////////////////////////
+
+	// window.onload = function() {
+
+	//   // Video
+	//   var video = document.getElementById("video");
+
+	//   // Buttons
+	//   var playButton = document.getElementById("play-pause");
+	//   var muteButton = document.getElementById("mute");
+	//   var fullScreenButton = document.getElementById("full-screen");
+
+	//   // Sliders
+	//   var seekBar = document.getElementById("seek-bar");
+	//   var volumeBar = document.getElementById("volume-bar");
+
+	// }
 //END OF JQUERY
 })
 

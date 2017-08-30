@@ -209,6 +209,9 @@ label {
 	line-height: 2;
 	margin-bottom: 0;
 }
+#comment-author {
+	display: inline;
+}
 .gag-title {
 	font-size: 24px;
 	font-weight: 700;
