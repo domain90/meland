@@ -366,7 +366,16 @@ label {
 #upload-progress.visible {
 	visibility: visible;
 }
-
+/******************************************************/
+/*PROFILE*/
+/******************************************************/
+.profile-container .card {
+	width: 100%;
+}
+.profile-container .content-img #meme-content {
+	min-width: 0;
+	max-width: 100%;
+}
 /******************************************************/
 /******************************************************/
 /*SIGN UP*/

@@ -29,17 +29,15 @@ $(function() {
 		var commentOn         = false;
 
 		function addTextarea(){
+			$payload.find("#comment-text").val("");
 			$payload.appendTo($commentPayload);
 		}
 
 		function addRepliedTo() {
 			$payload.find("#comment-text").append('@' + $commentAuthor);
 		}
-		addTextarea();
 
-		if($payload.val()) {
-			console.log(this);
-		}
+		addTextarea();
 		addRepliedTo();
 	})
 
