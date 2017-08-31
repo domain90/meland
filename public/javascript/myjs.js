@@ -23,19 +23,24 @@ $(function() {
 		event.preventDefault();
 		event.stopPropagation();
 
-		// var dataId = $(this).parents(".comment-payload.col-md-12").data("commentId");
-		var $commentPayload = $(this).parents(".comment-payload.col-md-12");
-		var $commentRow = $(this).parents(".row.comments-row");
-		var $commentAuthor = $(this).parents(".comment-input-area").find("#comment-author").text();
-		var commentOn = false;
+		var $commentPayload   = $(this).parents(".comment-payload.col-md-12");
+		var $commentRow       = $(this).parents(".row.comments-row");
+		var $commentAuthor    = $(this).parents(".comment-input-area").find("#comment-author").text();
+		var commentOn         = false;
 
-		function addComment(){
+		function addTextarea(){
 			$payload.appendTo($commentPayload);
-			$payload.append($commentAuthor);
 		}
-		addComment();
-		
-		
+
+		function addRepliedTo() {
+			$payload.find("#comment-text").append('@' + $commentAuthor);
+		}
+		addTextarea();
+
+		if($payload.val()) {
+			console.log(this);
+		}
+		addRepliedTo();
 	})
 
 	///////////////////////
@@ -50,8 +55,8 @@ $(function() {
 		var commentContainer = $(".comments-container");
 		var commentRow 	 	 = $(this).parents(".row.comments-row");
 		var textVal          = $(this).parents('form').find("textarea#comment-text.comment-input").val();
-		// var divParent 		 = $(this).closest(".comment-payload");
-		// var commentId = divParent.data("commentId");
+		
+
 		console.log(textVal);
 		$.ajax({
 			 url: "/gags/" + articleId,
@@ -60,8 +65,6 @@ $(function() {
 			  // dataType: "json",
 			 data: JSON.stringify({ comment: {text: textVal } })
 			 }).done(function(result){
-			 	// console.log(JSON.parse(result));
-			 	// console.log(result.author.username);
 			 	console.log(result);
 			 	addComment(result);
 			 })
@@ -188,15 +191,15 @@ $(function() {
 	  function errorHandler(evt) {
 	    switch(evt.target.error.code) {
 	      case evt.target.error.NOT_FOUND_ERR:
-	        alert('Archivo no fue encontrado');
+	        alert('El archivo no fue encontrado');
 	        break;
 	      case evt.target.error.NOT_READABLE_ERR:
-	        alert('File is not readable');
+	        alert('El archivo no es compatible');
 	        break;
 	      case evt.target.error.ABORT_ERR:
 	        break; // noop
 	      default:
-	        alert('An error occurred reading this file.');
+	        alert('Un error ha ocurrido. Trate otro archivo');
 	    };
 	  }
 
