@@ -37,9 +37,8 @@ $(function() {
 		}
 		addTextarea();
 
-		if($payload.val()) {
-			console.log(this);
-		}
+		console.log($payload.find("#comment-text").val());
+		
 		addRepliedTo();
 	})
 
