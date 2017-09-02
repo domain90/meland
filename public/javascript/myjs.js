@@ -12,21 +12,29 @@ $(function() {
 		var articleId 	= $("article").data("id");
 		var gagVotes    = $(this).parents(".card").find("#gag-votes");
 		var votes       = $(this).parents(".card").find("#votes");
-		$currentVotes.find("#gag-votes").css("color", "blue");
+		var updateVote  = parseInt($(this).parents(".card").find("#votes").text()) + 1;
 
+		// $currentVotes.find("#gag-votes").css("color", "blue");
+
+		// console.log(votes)
 		$.ajax({
 			 url: "/gags/" + articleId + "/upvote",
 			 type: "POST",
 			 contentType: "application/json; charset=utf-8",
 			  // dataType: "json",
-			 data: JSON.stringify({ comment: {text: textVal } })
+			 data: JSON.stringify({ votes: updateVote })
 			 }).done(function(result){
 			 	console.log(result);
-			 	addComment(result);
+			 	update(result);
 			 })
 			 .fail(function(err) {
 			 	console.log(err);
 			 })
+
+		function update(vote) {
+			votes.text(vote);
+			gagVotes.css("color", "blue");
+		}
 	})
 	//////////////////////
 	/////COMMENT-BOX//////
@@ -283,7 +291,7 @@ $(function() {
 
 		for (var i = 0, len = mp4elements.length; i < len; i++) {
 		  if(mp4elements[i].src.indexOf('.mp4') > 0) {
-		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls muted poster preload='metadata'")
+		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls muted preload='metadata'")
 		  }
 		}
 	}

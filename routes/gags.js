@@ -167,6 +167,27 @@ router.delete("/gags/:id", middleware.checkGagOwnership, function(req, res){
         }
      })
 })
+///////////////////////
+//Votes////////////////
+///////////////////////
+router.post("/gags/:id/upvote", function(req, res) {
+    Gag.findById(req.params.id).exec(function (err, foundGag){
+        if(err){
+            console.log(err)
+        } else {
+            foundGag.votes = req.body.votes;
+            foundGag.save();
+            res.json(foundGag.votes);
+        }
+    })
+})
+
+
+
+
+
+
+
 
 // =====================================
 // FACEBOOK ROUTES =====================
