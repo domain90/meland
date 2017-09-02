@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var router = express.Router();
 var User = require("../models/user");
+var Gag  = require("../models/gags");
 var mongoose = require("mongoose");
 var multer = require("multer");
 var passport = require("passport");
@@ -23,9 +24,17 @@ var upload = multer({ storage: storage });
 
 //SHOW & EDIT- Display User Profile
 router.get("/profile/:id", function(req, res) {
-    //Find the current user
-    res.render("profile", {currentUser: req.user} );
-    console.log(req.user)
+    //Find current user's posts
+     Gag.find({ "author.username": req.user.username}).sort({info: -1}).exec(function(err, foundGag){
+        if(err) {
+            console.log(err)
+        } else {
+             //Find the current user
+             res.render("profile", {currentUser: req.user, Gags: foundGag} );
+             console.log(foundGag);
+        }
+    })
+    console.log(req.user.username)
 })
 
 //UPDATE - Update User Profile
@@ -47,8 +56,8 @@ router.put("/profile/:id", upload.single('profile'),function(req, res) {
     		console.log(err)
     	} else {
     		res.redirect("back")
-    		console.log(updateProfile)
-    		console.log(req.file);
+    		// console.log(updateProfile)
+    		// console.log(req.file);
     	}
     })
     

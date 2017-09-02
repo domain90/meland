@@ -3,16 +3,31 @@ $(function() {
 	/////////////////
 	/////VOTING//////
 	/////////////////
-	$(".upvote").on("click", function(){
-		$(this).toggleClass("upvoted");
-		$(this).children().toggleClass("upvoted");
+	$(".votes").on('click', '.btn-vote', function(){
+		$(this).addClass('voted').siblings().removeClass('voted');
 	})
+	
+	$(".votes").on('click', '.btn-upvote', function(e){
 
-	$(".downvote").on("click", function(){
-		$(this).toggleClass("downvoted");
-		$(this).children().toggleClass("downvoted");
+		var articleId 	= $("article").data("id");
+		var gagVotes    = $(this).parents(".card").find("#gag-votes");
+		var votes       = $(this).parents(".card").find("#votes");
+		$currentVotes.find("#gag-votes").css("color", "blue");
+
+		$.ajax({
+			 url: "/gags/" + articleId + "/upvote",
+			 type: "POST",
+			 contentType: "application/json; charset=utf-8",
+			  // dataType: "json",
+			 data: JSON.stringify({ comment: {text: textVal } })
+			 }).done(function(result){
+			 	console.log(result);
+			 	addComment(result);
+			 })
+			 .fail(function(err) {
+			 	console.log(err);
+			 })
 	})
-
 	//////////////////////
 	/////COMMENT-BOX//////
 	//////////////////////
@@ -29,16 +44,16 @@ $(function() {
 		var commentOn         = false;
 
 		function addTextarea(){
+			$payload.find("#comment-text").val("");
 			$payload.appendTo($commentPayload);
 		}
 
 		function addRepliedTo() {
-			$payload.find("#comment-text").append('@' + $commentAuthor);
+			$payload.find("#comment-text").val('@' + $commentAuthor + " ");
 		}
+
 		addTextarea();
 
-		console.log($payload.find("#comment-text").val());
-		
 		addRepliedTo();
 	})
 

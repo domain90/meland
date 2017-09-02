@@ -19,7 +19,8 @@ var gagSchema = new mongoose.Schema({
         },
     ],
     views: {type: Number, default: 1},
-    commentsNumber:{type: Number, default: 0}
+    commentsNumber: {type: Number, default: 0},
+    votes: {type: Number, default: 0}
 });
 
 module.exports = mongoose.model("Gag", gagSchema);

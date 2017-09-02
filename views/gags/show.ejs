@@ -11,6 +11,7 @@
       <div class="card">
         <div class="head-title">
           <h3 class="gag-title"><%= gag["title"] %></h3>
+          <p  id="gag-votes"><span id="votes"><%= gag["votes"] %></span> Votos</p>
         </div>
         <div class="content-img">
           <a href="/gags/<%= gag['_id'] %>">
@@ -19,18 +20,20 @@
         </div>
         <div class="meta">
           <div class="meta-info">
-            <p class="left-floated"><%= gag["views"] %> Views</p>
+            <p class="left-floated"><%= gag["views"] %> Vistas</p>
             -
-            <p class="left-floated"><%= gag["commentsNumber"] %> Comments</p>
+            <p class="left-floated"><%= gag["commentsNumber"] %> Comentarios</p>
           </div>
         </div>
         <div class="cta">
-          <div class="left-floated">
-              <div class="upvote btn btn-default">
-                <span class="glyphicon glyphicon-arrow-up">
-              </div>
-              <div class="upvote btn btn-default">
-                <span class="glyphicon glyphicon-arrow-down">
+            <div class="left-floated">
+              <div class="votes">
+                <div class="btn-vote btn btn-default btn-upvote">
+                    <span class="glyphicon glyphicon-arrow-up">
+                </div>
+                <div class="btn-vote btn btn-default btn-downvote">
+                  <span class="glyphicon glyphicon-arrow-down">
+                </div>
               </div>
               <% if(currentUser && gag.author.id.equals(currentUser._id)) { %>
               <a href="<%= gag['id'] %>/edit" class="btn btn-default">
@@ -43,7 +46,10 @@
           </div>
           <div class="right-floated">
             <a href="/gags/<%= gag['_id'] %>" title="Facebook" class="btn btn-facebook" id="share_button">
-                <i class="fa fa-facebook fa-fw"></i>
+                <i class="fa fa-facebook fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="whatsapp://send?text=/gags/<%= gag['_id'] %>" class="btn btn-whatsapp" id="share_button" data-action="share/whatsapp/share">
+              <i class="fa fa-whatsapp" aria-hidden="true"></i>
             </a>
           </div>
         </div>
@@ -64,13 +70,13 @@
                 <textarea name="comment[text]" rows="4" class="comment-input" id="comment-text"></textarea>
               </div>
               <div class="text-right">
-                <button class="btn btn-success commentSubmit" id="commentSubmit" type="submit" value="Submit">Add Comment</button>
+                <button class="btn btn-success commentSubmit" id="commentSubmit" type="submit" value="Submit">Comentar</button>
               </div>
             </form>
           </div>
         </div>
         
-        <div class="comments-container">
+        <div class="comments-container" id="comentarios"">
           <% gag.comments.forEach(function(comment){ %>
           <div class="row comments-row">
             <div class="comment-payload col-md-12" data-comment-id="<%= comment._id %>">
@@ -80,11 +86,11 @@
               <div class="comment-input-area">
                 <div class="comment-meta">
                   <p id="comment-author"><strong><%= comment.author.username %></strong></p>
-                  <span class="gag-votes"><%= comment.votes %> Votes</span>
+                  <span class="comment-votes"><%= comment.votes %> Votes</span>
                 </div>
                 <p class="comment-main"><%= comment.text %></p>
                 <div class="comment-cta">
-                  <a href="" class="comment-reply-link">Reply</a>
+                  <a href="" class="comment-reply-link">Responder</a>
                   <a href=""><span class="glyphicon glyphicon-arrow-up"></a>
                   <a href=""><span class="glyphicon glyphicon-arrow-down"></a>
                    <% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
@@ -106,19 +112,19 @@
               <div class="comment-input-area">
                 <div class="comment-meta">
                   <strong><%= commentChildren.author.username %></strong>
-                  <span class="gag-votes"><%= commentChildren.votes %> Votes</span>
+                  <span class="comment-votes"><%= commentChildren.votes %> Votos</span>
                 </div>
                 <p class="comment-main"><%= commentChildren.text %></p>
                 <div class="comment-cta">
-                  <a href="" class="comment-reply-link">Reply</a>
+                  <a href="" class="comment-reply-link">Responder</a>
                   <a href=""><span class="glyphicon glyphicon-arrow-up"></a>
                   <a href=""><span class="glyphicon glyphicon-arrow-down"></a>
                    <% if(currentUser && commentChildren.author.id.equals(currentUser._id)) { %>
-                    <a href="<%= gag['id'] %>/edit" class="btn btn-default">
+                    <a href="<%= gag['id'] %>/edit" >
                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </a>
                     <form method="POST" id="deleteForm" action="/gags/<%= gag._id %>?_method=DELETE">
-                       <button class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                       <button><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </form>
                    <% } %>
                 </div>
