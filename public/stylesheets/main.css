@@ -144,6 +144,9 @@ input {
 .content-img {
 	text-align: center;
 }
+.votes {
+	display: inline;
+}
 #meme-content{
 	min-width: 600px;
 	max-width: 600px;
@@ -161,9 +164,7 @@ input {
  	color: #fff;
 }
 .btn-whatsapp {
-	background: #25D366;
-	border-radius: 0;
-	color: #fff;
+	display: none;
 }
 /*REGISTER*/
 .signup {
@@ -184,6 +185,9 @@ label {
 /******************************************************/
 /* SHOW */
 /******************************************************/
+#share-tag {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 .comments-row:nth-child(even) {
 	background: #f5f5f5;
 }
@@ -228,13 +232,17 @@ label {
 	font-size: 12px;
 	padding-left: 5px;
 }
-/*.comment-cta {
-	margin-bottom: 5px;
-}*/
+.reply {
+	padding-top: 10px;
+}
+.comment-cta {
+	padding-bottom: 5px;
+}
 .comment-cta a{
 	font-size: 13px;
 	font-weight: 700;
 	color: #808080;
+	padding: 0 1px;
 }
 .comment-reply-link {
 	padding-right: 5px;
@@ -441,7 +449,12 @@ label {
 .comments {
 	width: 100%;
 }
-
+.btn-whatsapp {
+	display: inline-block;
+	background: #25D366;
+	border-radius: 0;
+	color: #fff;
+}
 
 
 /*************************************/

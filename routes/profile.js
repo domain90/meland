@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/')
+        cb(null, 'public/uploads/' + req.user.username)
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname)
@@ -47,7 +47,7 @@ router.put("/profile/:id", upload.single('profile'),function(req, res) {
     if(!req.file){
         var avatar = req.user.avatar;
     } else {
-        var avatar = "/uploads/" + req.file.filename;
+        var avatar = "/uploads/" + req.user.username + "/" + req.file.filename;
     }
     var updateProfile = { username: newUsername, email: newEmail, password: newPassword, avatar: avatar };
 

@@ -11,7 +11,7 @@
       <div class="card">
         <div class="head-title">
           <h3 class="gag-title"><%= gag["title"] %></h3>
-          <p  id="gag-votes"><span id="votes"><%= gag["votes"] %></span> Votos</p>
+          
         </div>
         <div class="content-img">
           <a href="/gags/<%= gag['_id'] %>">
@@ -21,6 +21,8 @@
         <div class="meta">
           <div class="meta-info">
             <p class="left-floated"><%= gag["views"] %> Vistas</p>
+            -
+            <p  id="gag-votes" class="left-floated"><span id="votes"><%= gag["votes"] %></span> Votos</p>
             -
             <p class="left-floated"><%= gag["commentsNumber"] %> Comentarios</p>
           </div>

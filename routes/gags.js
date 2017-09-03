@@ -7,10 +7,11 @@ var multer       = require("multer");
 var passport     = require("passport");
 mongoose.Promise = require('bluebird');
 var middleware   = require("../middleware/index.js");
+var mkdirp       = require('mkdirp');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/')
+        cb(null, 'public/uploads/' + req.user.username)
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname)
@@ -85,7 +86,7 @@ router.post("/", upload.single('gag'), function(req, res){
     if(!req.file){
         var image = req.body.url
     } else {
-        var image = "/uploads/" + req.file.filename;
+        var image = "/uploads/" + req.user.username + "/" + req.file.filename;
     }
     var info = req.body.info;
     var author = {
@@ -182,12 +183,17 @@ router.post("/gags/:id/upvote", function(req, res) {
     })
 })
 
-
-
-
-
-
-
+router.post("/gags/:id/downvote", function(req, res) {
+    Gag.findById(req.params.id).exec(function (err, foundGag){
+        if(err){
+            console.log(err)
+        } else {
+            foundGag.votes = req.body.votes;
+            foundGag.save();
+            res.json(foundGag.votes);
+        }
+    })
+})
 
 // =====================================
 // FACEBOOK ROUTES =====================

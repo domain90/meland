@@ -7,22 +7,15 @@ $(function() {
 		$(this).addClass('voted').siblings().removeClass('voted');
 	})
 	
-	$(".votes").on('click', '.btn-upvote', function(e){
+	var articleId 	= $("article").data("id");
 
-		var articleId 	= $("article").data("id");
-		var gagVotes    = $(this).parents(".card").find("#gag-votes");
-		var votes       = $(this).parents(".card").find("#votes");
-		var updateVote  = parseInt($(this).parents(".card").find("#votes").text()) + 1;
-
-		// $currentVotes.find("#gag-votes").css("color", "blue");
-
-		// console.log(votes)
-		$.ajax({
-			 url: "/gags/" + articleId + "/upvote",
+	function votejax(article, url, voting, target, color, votediv) {
+			$.ajax({
+			 url: "/gags/" + article + url,
 			 type: "POST",
 			 contentType: "application/json; charset=utf-8",
 			  // dataType: "json",
-			 data: JSON.stringify({ votes: updateVote })
+			 data: JSON.stringify({ votes: voting })
 			 }).done(function(result){
 			 	console.log(result);
 			 	update(result);
@@ -32,9 +25,33 @@ $(function() {
 			 })
 
 		function update(vote) {
-			votes.text(vote);
-			gagVotes.css("color", "blue");
+			target.text(vote);
+			votediv.css({"color": color, "font-weight": 700});
 		}
+	}
+
+	$(".votes").on('click', '.btn-upvote', function(e){
+		
+		var gagVotes    = $(this).parents(".card").find("#gag-votes");
+		var votes       = $(this).parents(".card").find("#votes");
+		var updateVote  = parseInt($(this).parents(".card").find("#votes").text()) + 1;
+
+		// $currentVotes.find("#gag-votes").css("color", "blue");
+
+		console.log(votes)
+		votejax(articleId,"/upvote", updateVote, votes, "blue", gagVotes);
+	})
+
+	$(".votes").on('click', '.btn-downvote', function(e){
+		
+		var gagVotes    = $(this).parents(".card").find("#gag-votes");
+		var votes       = $(this).parents(".card").find("#votes");
+		var updateVote  = parseInt($(this).parents(".card").find("#votes").text()) - 1;
+
+		// $currentVotes.find("#gag-votes").css("color", "blue");
+
+		// console.log(votes)
+		votejax(articleId,"/downvote", updateVote, votes, "red", gagVotes);
 	})
 	//////////////////////
 	/////COMMENT-BOX//////
