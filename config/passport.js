@@ -5,6 +5,7 @@ var passport = require('passport');
 var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
+var mkdirp           = require("mkdirp");
 
 // load up the user model
 var User       = require('../models/user');
@@ -68,7 +69,12 @@ module.exports = function() {
                     newUser.username        = profile.displayName; // look at the passport user profile to see how names are returned
                     newUser.avatar          = profile.photos ? profile.photos[0].value : '/public/default_avatar.jpg'
                     newUser.email           = profile.emails[0].value;
-                    newUser.facebook.token  = token; // we will save the token that facebook provides to the user         
+                    newUser.facebook.token  = token; // we will save the token that facebook provides to the user      
+
+                    mkdirp('public/uploads/' + user._id, function (err) {
+                        if (err) console.error(err)
+                        else console.log('pow!')
+                    });   
 
                     // save our user to the database
                     newUser.save(function(err, data) {
@@ -122,6 +128,12 @@ module.exports = function() {
                     newUser.avatar       = profile.photos ? profile.photos[0].value : '/public/default_avatar.jpg'
                     newUser.email        = profile.emails[0].value; // pull the first email
                     // console.log(profile);
+
+                    mkdirp('public/uploads/' + user._id, function (err) {
+                        if (err) console.error(err)
+                        else console.log('pow!')
+                    });  
+
                     // save the user
                     newUser.save(function(err) {
                         if (err)
