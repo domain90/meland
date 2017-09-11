@@ -53,6 +53,32 @@ $(function() {
 		// console.log(votes)
 		votejax(articleId,"/downvote", updateVote, votes, "red", gagVotes);
 	})
+
+	$(".votes").on('click', '.comment-upvote', function(e){
+
+		var commentId    = $(this).parents(".comment-payload").data(commentId);
+		
+		var commentVotes = $(this).parents(".comment-input-area").find(".comment-votes");
+		var votes        = $(this).parents(".comment-input-area").find("#comment-votes");
+		var updateVote   = parseInt($(this).parents("comment-input-area").find("#comment-votes").text()) + 1;
+
+		// $currentVotes.find("#gag-votes").css("color", "blue");
+
+		votejax(commentId,"/upvote", updateVote, votes, "blue", commentVotes);
+	})
+
+	$(".votes").on('click', '.comment-downvote', function(e){
+
+		var commentId    = $(this).parents(".comment-payload").data(commentId);
+		
+		var commentVotes = $(this).parents(".comment-input-area").find(".comment-votes");
+		var votes        = $(this).parents(".comment-input-area").find("#comment-votes");
+		var updateVote   = parseInt($(this).parents("comment-input-area").find("#comment-votes").text()) - 1;
+
+		// $currentVotes.find("#gag-votes").css("color", "blue");
+	
+		votejax(commentId,"/upvote", updateVote, votes, "red", commentVotes);
+	})
 	//////////////////////
 	/////COMMENT-BOX//////
 	//////////////////////
@@ -125,8 +151,10 @@ $(function() {
 				                	'<p class="comment-main">' + comment.text + '</p>' + 
 					                '<div class="comment-cta">' + 
 					                  '<a href="" class="comment-reply-link">Reply</a>' +
-					                  '<a href=""><span class="glyphicon glyphicon-arrow-up"></a>' +
-					                  '<a href=""><span class="glyphicon glyphicon-arrow-down"></a>' +
+					                  '<div class="votes">'+
+					                  	'<div class="comment-upvote"><span class="glyphicon glyphicon-arrow-up"></div>' +
+					                  	'<div class="comment-downvote"><span class="glyphicon glyphicon-arrow-down"></div>' +
+					                  '</div>' +
 					                '</div>' +
 					              '</div>' + 
 					            '</div>' +
@@ -177,8 +205,10 @@ $(function() {
 			                	'<p class="comment-main">' + comment.text + '</p>' + 
 				                '<div class="comment-cta">' + 
 				                  '<a href="" class="comment-reply-link">Reply</a>' +
-				                  '<a href=""><span class="glyphicon glyphicon-arrow-up"></a>' +
-				                  '<a href=""><span class="glyphicon glyphicon-arrow-down"></a>' +
+				                  '<div class="votes">'+
+					                  '<div href="" class="comment-upvote"><span class="glyphicon glyphicon-arrow-up"></div>' +
+					                  '<div href="" class="comment-downvote"><span class="glyphicon glyphicon-arrow-down"></div>' +
+					               '</div>' +
 				                '</div>' +
 				              '</div>' + 
 				            '</div>';

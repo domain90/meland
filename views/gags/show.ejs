@@ -93,13 +93,15 @@
               <div class="comment-input-area">
                 <div class="comment-meta">
                   <p id="comment-author"><strong><%= comment.author.username %></strong></p>
-                  <span class="comment-votes"><%= comment.votes %> Votes</span>
+                  <span class="comment-votes"><span id="comment-votes"><%= comment.votes %></span> Votos</span>
                 </div>
                 <p class="comment-main"><%= comment.text %></p>
                 <div class="comment-cta">
                   <a href="" class="comment-reply-link">Responder</a>
-                  <a href=""><span class="glyphicon glyphicon-arrow-up"></a>
-                  <a href=""><span class="glyphicon glyphicon-arrow-down"></a>
+                  <div class="votes">
+                    <div class="comment-upvote"><span class="glyphicon glyphicon-arrow-up"></div>
+                    <div class="comment-downvote"><span class="glyphicon glyphicon-arrow-down"></div>
+                  </div>
                    <% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
                     <a href="/gags/<%= gag.id %>/<%= comment.id %>/edit">
                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -119,13 +121,15 @@
               <div class="comment-input-area">
                 <div class="comment-meta">
                   <strong><%= commentChildren.author.username %></strong>
-                  <span class="comment-votes"><%= commentChildren.votes %> Votos</span>
+                  <span class="comment-votes"><span id="comment-votes"><%= comment.votes %></span> Votos</span>
                 </div>
                 <p class="comment-main"><%= commentChildren.text %></p>
                 <div class="comment-cta">
                   <a href="" class="comment-reply-link">Responder</a>
-                  <a href=""><span class="glyphicon glyphicon-arrow-up"></a>
-                  <a href=""><span class="glyphicon glyphicon-arrow-down"></a>
+                  <div class="votes">
+                    <div class="comment-upvote"><span class="glyphicon glyphicon-arrow-up"></div>
+                    <div class="comment-downvote"><span class="glyphicon glyphicon-arrow-down"></div>
+                  </div>
                    <% if(currentUser && commentChildren.author.id.equals(currentUser._id)) { %>
                     <a href="<%= gag['id'] %>/edit" >
                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

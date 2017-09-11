@@ -112,6 +112,32 @@ router.delete("/gags/:id/:idcomment", middleware.checkCommentOwnership,function(
      })
 })
 
+//Votes
+router.post("/comments/:id/upvote", function(req, res) {
+    Comment.findById(req.params.id).exec(function (err, foundComment){
+        if(err){
+            console.log(err)
+        } else {
+            foundComment.votes = req.body.votes;
+            foundComment.save();
+            res.json(foundComment.votes);
+        }
+    })
+})
+
+router.post("/comments/:id/downvote", function(req, res) {
+    Comment.findById(req.params.id).exec(function (err, foundComment){
+        if(err){
+            console.log(err)
+        } else {
+            foundComment.votes = req.body.votes;
+            foundComment.save();
+            res.json(foundComment.votes);
+        }
+    })
+})
+
+
 //Middleware 
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()){
