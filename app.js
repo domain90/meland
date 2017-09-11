@@ -16,6 +16,7 @@ var Promise               = require("bluebird");
 var mongodb               = require('mongodb');
 var methodOverride        = require("method-override");
 var flash                 = require("connect-flash");
+var expressValidator      = require('express-validator');
 /////////////////////////////////////
 //Server Config
 /////////////////////////////////////
@@ -32,6 +33,8 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 app.use(flash());
+app.use(expressValidator());
+
 /////////////////////////////////////
 //Require Routes
 /////////////////////////////////////
@@ -47,7 +50,7 @@ var profile             = require("./routes/profile.js");
 app.use(exsession({
     secret: "This is a cool project",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
 }));
 
 app.use(passport.initialize());
@@ -73,8 +76,38 @@ app.use(commentsRoutes);
 app.use(profile);
 
 /////////////////////////////////////
+// Error Handler
+/////////////////////////////////////
+app.use(function(req, res, next){
+    res.status(404);
+
+    // respond with html page
+    if(req.accepts('html')) {
+        res.render('oops', {error: 'The resource you where looking for is not available.'});
+        return;
+    };
+
+});
+app.use(function(err, req, res, next){
+    console.log(err);
+    // we may use properties of the error object
+    // here and next(err) appropriately, or if
+
+    // we possibly recovered from the error, simply next().
+    res.status(err.status || 500);
+
+    // respond with html page
+    if(req.accepts('html')) {
+        res.render('oops', {error: 'Something is broken on our end, email us if this issue persist.'});
+        return;
+    }
+
+});
+
+/////////////////////////////////////
 //Listen Event
 /////////////////////////////////////
 app.listen(process.env.PORT || 8000, function(){
     console.log("Meland Started!");
 })
+

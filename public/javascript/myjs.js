@@ -222,6 +222,7 @@ $(function() {
 	/////////////////////////
 	var reader;
 	var progress = document.querySelector('.percent');
+	document.getElementById('upload-status').textContent = 'Archivos tipo JPG, PNG, GIF, MP4. Imagen MAX 8MB, Video 50MB'
 
 	function abortRead() {
 		reader.abort();
@@ -258,7 +259,7 @@ $(function() {
 	   	    // Reset progress indicator on new file selection.
 		    progress.style.width = '0%';
 		    progress.textContent = '0%';
-		    document.getElementById('upload-status').textContent = '';
+		    document.getElementById('upload-status').textContent = 'Archivos tipo JPG, PNG, GIF, MP4. Imagen MAX 8MB, Video 50MB';
 
 		    reader = new FileReader();
 		    reader.onerror = errorHandler;

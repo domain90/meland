@@ -58,14 +58,18 @@
       </div>
 
       <div class="comments">
+        <% if(!currentUser) { %>
+        <div class="no-userComment">
+          <div class="content-box">
+            <h3>Crea una cuenta para comentar</h3>
+            <a class="btn btn-primary" href="/register">Unirme</a>
+          </div>
+        </div>
+        <% } else {%>
         <div class="comment-box">
           <div class="payload">
             <div class="comment-user-container">
-            <% if(!currentUser) { %>
-              <img src="/default_avatar.png" alt="" class="user_avatar">
-            <% } else { %>
               <img src="<%= currentUser.avatar %>" alt="" class="user_avatar">
-            <% } %>
             </div>
             <form method="POST" action="/gags/<%= gag._id %>">
               <div class="comment-input-area">
@@ -77,7 +81,8 @@
             </form>
           </div>
         </div>
-        
+         <% } %>
+
         <div class="comments-container" id="comentarios"">
           <% gag.comments.forEach(function(comment){ %>
           <div class="row comments-row">

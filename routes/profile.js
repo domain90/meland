@@ -7,13 +7,16 @@ var mongoose = require("mongoose");
 var multer = require("multer");
 var passport = require("passport");
 var bodyParser = require("body-parser");
+var tinify = require("tinify");
+
+tinify.key = "2qYGZh9szLO3V7SGxV6XvIH6m9gUn2N8";
 mongoose.Promise = require('bluebird');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/' + req.user.username)
+        cb(null, 'public/uploads/' + req.user.id)
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname)
@@ -25,7 +28,7 @@ var upload = multer({ storage: storage });
 //SHOW & EDIT- Display User Profile
 router.get("/profile/:id", function(req, res) {
     //Find current user's posts
-     Gag.find({ "author.username": req.user.username}).sort({info: -1}).exec(function(err, foundGag){
+     Gag.find({ "author.id": req.user.id}).sort({info: -1}).exec(function(err, foundGag){
         if(err) {
             console.log(err)
         } else {
@@ -45,9 +48,9 @@ router.put("/profile/:id", upload.single('profile'),function(req, res) {
     var newPassword = req.body.password;
     var avatar      = "";
     if(!req.file){
-        var avatar = req.user.avatar;
+        avatar = req.user.avatar;
     } else {
-        var avatar = "/uploads/" + req.user.username + "/" + req.file.filename;
+        avatar = '/uploads/' + req.user.id + "/" + req.file.filename;
     }
     var updateProfile = { username: newUsername, email: newEmail, password: newPassword, avatar: avatar };
 
@@ -56,7 +59,11 @@ router.put("/profile/:id", upload.single('profile'),function(req, res) {
     		console.log(err)
     	} else {
     		res.redirect("back")
-    		// console.log(updateProfile)
+            var source = tinify.fromFile('public/uploads/' + req.user.id + "/" + req.file.filename);
+            source.toFile('public/uploads/' + req.user.id + "/" + req.file.filename);
+      //       console.log(source)
+      //       console.log(avatar)
+    		// console.log(updateProfile.avatar)
     		// console.log(req.file);
     	}
     })

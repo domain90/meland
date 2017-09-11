@@ -8,10 +8,11 @@ var passport     = require("passport");
 mongoose.Promise = require('bluebird');
 var middleware   = require("../middleware/index.js");
 var mkdirp       = require('mkdirp');
+var tinify       = require("tinify");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/' + req.user.username)
+        cb(null, 'public/uploads/' + req.user.id)
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname)
@@ -81,12 +82,24 @@ app.use(middleware.isLoggedIn);
 //CREATE
 router.post("/", upload.single('gag'), function(req, res){
     //get data from form and add to array
-    var title = req.body.title;
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+           // You do not need to check if i is larger than splitStr length, as your for does that for you
+           // Assign it back to the array
+           splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+        }
+    // Directly return the joined string
+    return splitStr.join(' '); 
+    }
+
+    var title = titleCase(req.body.title);
+
     var image = "";
     if(!req.file){
         var image = req.body.url
     } else {
-        var image = "/uploads/" + req.user.username + "/" + req.file.filename;
+        var image = "/uploads/" + req.user.id + "/" + req.file.filename;
     }
     var info = req.body.info;
     var author = {
@@ -102,7 +115,9 @@ router.post("/", upload.single('gag'), function(req, res){
             console.log(err);
         } else {
             //redirect to index
-            console.log(newlyGag)
+            // console.log(newlyGag)
+            var source = tinify.fromFile('public/uploads/' + req.user.id + "/" + req.file.filename);
+            source.toFile('public/uploads/' + req.user.id + "/" + req.file.filename);
             res.redirect("/");
         }
     })

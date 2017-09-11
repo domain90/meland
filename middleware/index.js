@@ -33,7 +33,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next) {
                 res.redirect('back')
             } else {
                 //does the current usesr own the post
-                if(foundComment.author.id.equals(req.user.id)) {
+                if(foundComment.author.id.equals(req.user.id) || founcComment.commentChildren.author.id.equals(req.user.id)) {
                    next()
                 }
                 else {
