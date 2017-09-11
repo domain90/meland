@@ -116,9 +116,12 @@ router.post("/", upload.single('gag'), function(req, res){
         } else {
             //redirect to index
             // console.log(newlyGag)
-            var source = tinify.fromFile('public/uploads/' + req.user.id + "/" + req.file.filename);
-            source.toFile('public/uploads/' + req.user.id + "/" + req.file.filename);
-            res.redirect("/");
+            if(req.file) {
+                var source = tinify.fromFile('public/uploads/' + req.user.id + "/" + req.file.filename);
+                source.toFile('public/uploads/' + req.user.id + "/" + req.file.filename);
+            }
+            
+            res.redirect("/gags/" + newlyGag.id);
         }
     })
     
