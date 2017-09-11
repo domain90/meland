@@ -271,6 +271,9 @@ label {
 	color: #808080;
 	padding-right: 4px;
 }
+.comment-cta .votes div {
+	margin-right: 5px;
+}
 .comment-upvote, .comment-downvote {
 	display: inline;
 	cursor: pointer;

@@ -9,9 +9,9 @@ $(function() {
 	
 	var articleId 	= $("article").data("id");
 
-	function votejax(article, url, voting, target, color, votediv) {
+	function votejax(model, article, route, voting, target, color, votediv) {
 			$.ajax({
-			 url: "/gags/" + article + url,
+			 url: model + article + route,
 			 type: "POST",
 			 contentType: "application/json; charset=utf-8",
 			  // dataType: "json",
@@ -39,7 +39,7 @@ $(function() {
 		// $currentVotes.find("#gag-votes").css("color", "blue");
 
 		console.log(votes)
-		votejax(articleId,"/upvote", updateVote, votes, "blue", gagVotes);
+		votejax("/gags/" ,articleId,"/upvote", updateVote, votes, "blue", gagVotes);
 	})
 
 	$(".votes").on('click', '.btn-downvote', function(e){
@@ -51,33 +51,36 @@ $(function() {
 		// $currentVotes.find("#gag-votes").css("color", "blue");
 
 		// console.log(votes)
-		votejax(articleId,"/downvote", updateVote, votes, "red", gagVotes);
+		votejax("/gags/", articleId,"/downvote", updateVote, votes, "red", gagVotes);
 	})
 
 	$(".votes").on('click', '.comment-upvote', function(e){
 
-		var commentId    = $(this).parents(".comment-payload").data(commentId);
+		var commentId    = $(this).parents(".comment-payload").data("commentId");
 		
 		var commentVotes = $(this).parents(".comment-input-area").find(".comment-votes");
 		var votes        = $(this).parents(".comment-input-area").find("#comment-votes");
-		var updateVote   = parseInt($(this).parents("comment-input-area").find("#comment-votes").text()) + 1;
+		var updateVote   = parseInt($(this).parents(".comment-input-area").find("#comment-votes").text()) + 1;
 
 		// $currentVotes.find("#gag-votes").css("color", "blue");
-
-		votejax(commentId,"/upvote", updateVote, votes, "blue", commentVotes);
+		// console.log(commentId);
+		// console.log(commentVotes);
+		// console.log(votes);
+		// console.log(updateVote);
+		votejax("/comments/", commentId,"/upvote", updateVote, votes, "blue", commentVotes);
 	})
 
 	$(".votes").on('click', '.comment-downvote', function(e){
 
-		var commentId    = $(this).parents(".comment-payload").data(commentId);
+		var commentId    = $(this).parents(".comment-payload").data("commentId");
 		
 		var commentVotes = $(this).parents(".comment-input-area").find(".comment-votes");
 		var votes        = $(this).parents(".comment-input-area").find("#comment-votes");
-		var updateVote   = parseInt($(this).parents("comment-input-area").find("#comment-votes").text()) - 1;
+		var updateVote   = parseInt($(this).parents(".comment-input-area").find("#comment-votes").text()) - 1;
 
 		// $currentVotes.find("#gag-votes").css("color", "blue");
 	
-		votejax(commentId,"/upvote", updateVote, votes, "red", commentVotes);
+		votejax("/comments/", commentId,"/upvote", updateVote, votes, "red", commentVotes);
 	})
 	//////////////////////
 	/////COMMENT-BOX//////
