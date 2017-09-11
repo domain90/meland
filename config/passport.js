@@ -71,7 +71,7 @@ module.exports = function() {
                     newUser.email           = profile.emails[0].value;
                     newUser.facebook.token  = token; // we will save the token that facebook provides to the user      
 
-                    mkdirp('public/uploads/' + user._id, function (err) {
+                    mkdirp('public/uploads/' + newUser._id, function (err) {
                         if (err) console.error(err)
                         else console.log('pow!')
                     });   
@@ -129,7 +129,7 @@ module.exports = function() {
                     newUser.email        = profile.emails[0].value; // pull the first email
                     // console.log(profile);
 
-                    mkdirp('public/uploads/' + user._id, function (err) {
+                    mkdirp('public/uploads/' + newUser.id, function (err) {
                         if (err) console.error(err)
                         else console.log('pow!')
                     });  
