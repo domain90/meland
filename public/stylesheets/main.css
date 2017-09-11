@@ -269,7 +269,7 @@ label {
 	font-size: 13px;
 	font-weight: 700;
 	color: #808080;
-	padding: 0 1px;
+	padding-right: 4px;
 }
 .comment-reply-link {
 	padding-right: 5px;
@@ -279,6 +279,14 @@ label {
 }
 .comment-payload .payload .comment-user-container .comment-input-area {
 	margin-left: 45px;
+}
+#deleteForm button {
+	padding: 0;
+	border: none;
+	background: none
+}
+#deleteForm i {
+	color: #cc0000;
 }
 /******************************************************/
 /*EDIT*/

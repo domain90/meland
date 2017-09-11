@@ -27,13 +27,13 @@ middlewareObj.checkGagOwnership = function(req, res, next) {
 
 middlewareObj.checkCommentOwnership = function(req, res, next) {
     if(req.isAuthenticated()){
-        Comment.findById(req.params.comment_id).exec(function(err, foundComment){
+        Comment.findById(req.params.idcomment).exec(function(err, foundComment){
             if(err){
             	req.flash("error", "No se encuentra el comentario")
                 res.redirect('back')
             } else {
                 //does the current usesr own the post
-                if(foundComment.author.id.equals(req.user.id) || founcComment.commentChildren.author.id.equals(req.user.id)) {
+                if(foundComment.author.id.equals(req.user.id) || foundComment.commentChildren.author.id.equals(req.user.id)) {
                    next()
                 }
                 else {

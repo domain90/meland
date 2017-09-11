@@ -104,7 +104,7 @@
                     <a href="/gags/<%= gag.id %>/<%= comment.id %>/edit">
                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </a>
-                    <form method="POST" id="deleteForm" action="/gags/<%= gag._id %>/<%= comment.id %>?_method=DELETE">
+                    <form method="POST" id="deleteForm" action="/gags/<%= gag._id %>/<%= comment._id %>?_method=DELETE">
                        <button><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </form>
                    <% } %>
@@ -130,7 +130,7 @@
                     <a href="<%= gag['id'] %>/edit" >
                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </a>
-                    <form method="POST" id="deleteForm" action="/gags/<%= gag._id %>?_method=DELETE">
+                    <form method="POST" id="deleteForm" action="/gags/<%= gag._id %>/<%= comment._id %>?_method=DELETE">
                        <button><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </form>
                    <% } %>

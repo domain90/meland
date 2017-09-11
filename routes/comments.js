@@ -102,12 +102,12 @@ router.put("/gags/:id/:idcomment", middleware.checkCommentOwnership,function(req
 
 //DESTROY 
 router.delete("/gags/:id/:idcomment", middleware.checkCommentOwnership,function(req, res){
-     Gag.findByIdAndRemove(req.params.id).exec(function(err){
+  Comment.findByIdAndRemove(req.params.idcomment).exec(function(err){
         if(err){
             res.redirect('back')
         } else {
             //show more info in a template
-            res.redirect('back');
+            res.redirect("/gags/" + req.params.id);
         }
      })
 })
