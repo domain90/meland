@@ -71,10 +71,6 @@ router.post("/register", upload.single('avatar'), function(req, res, next) {
                     req.flash("error", err.message)
                     return res.redirect("register");
                 }
-                mkdirp('public/uploads/' + user._id, function (err) {
-                    if (err) console.error(err)
-                    else console.log('pow!')
-                });
                 passport.authenticate("local")(req, res, function(){
                     req.flash("success", "Bienvenido " + user.username)
                     res.redirect("/");

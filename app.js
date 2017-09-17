@@ -17,12 +17,12 @@ var mongodb               = require('mongodb');
 var methodOverride        = require("method-override");
 var flash                 = require("connect-flash");
 var expressValidator      = require('express-validator');
+var cloudinary            = require('cloudinary');
 /////////////////////////////////////
 //Server Config
 /////////////////////////////////////
-// var atlas = "mongodb://domain90:counter333@clusterme-shard-00-00-bjals.mongodb.net:27017,clusterme-shard-00-01-bjals.mongodb.net:27017,clusterme-shard-00-02-bjals.mongodb.net:27017/test?ssl=true&replicaSet=ClusterMe-shard-0&authSource=admin"
 
-mongoose.connect(process.env.ATLAS_URI || "mongodb://localhost/yelp_camp_v6");
+mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/yelp_camp_v6");
 // var uri = 'mongodb://user:pass@host:port/db';
 // mongodb.MongoClient.connect(uri, function (err, db) {
 //     /* adventure! */
@@ -35,6 +35,11 @@ app.use(methodOverride("_method"));
 app.use(flash());
 app.use(expressValidator());
 
+cloudinary.config({ 
+  cloud_name: 'menacion01', 
+  api_key: '941395553812998', 
+  api_secret: 'QOiyAix56NUUp7IOAidAhTnchn0' 
+});
 /////////////////////////////////////
 //Require Routes
 /////////////////////////////////////

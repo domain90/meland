@@ -9,10 +9,12 @@ mongoose.Promise = require('bluebird');
 var middleware   = require("../middleware/index.js");
 var mkdirp       = require('mkdirp');
 var tinify       = require("tinify");
+var fs           = require("fs");
+var cloudinary   = require('cloudinary');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/' + req.user.id)
+        cb(null, 'public/uploads/tmp')
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname)
@@ -81,51 +83,59 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 app.use(middleware.isLoggedIn);
 //CREATE
 router.post("/", upload.single('gag'), function(req, res){
-    //get data from form and add to array
-    function titleCase(str) {
-        var splitStr = str.toLowerCase().split(' ');
-        for (var i = 0; i < splitStr.length; i++) {
-           // You do not need to check if i is larger than splitStr length, as your for does that for you
-           // Assign it back to the array
-           splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    cloudinary.v2.uploader.upload('public/uploads/tmp/' + req.file.filename, {public_id: req.file.filename }, function(error, result) {
+        if(error) {
+            console.log("Error");
         }
-    // Directly return the joined string
-    return splitStr.join(' '); 
-    }
-
-    var title = titleCase(req.body.title);
-
-    var image = "";
-    if(!req.file){
-        var image = req.body.url
-    } else {
-        var image = "/uploads/" + req.user.id + "/" + req.file.filename;
-    }
-    var info = req.body.info;
-    var author = {
-        id: req.user.id,
-        username: req.user.username
-    }
-    var category = req.body.category;
-    var newGag = {title: title, image: image, info: info, author: author, category: category};
-    //Save to database
-    Gag.create(newGag, function(err, newlyGag){
-        if(err){
-            console.log("An error has occur");
-            console.log(err);
-        } else {
-            //redirect to index
-            // console.log(newlyGag)
-            if(req.file) {
-                var source = tinify.fromFile('public/uploads/' + req.user.id + "/" + req.file.filename);
-                source.toFile('public/uploads/' + req.user.id + "/" + req.file.filename);
+        else {
+                    console.log(result.url)
+                    var image = result.url;
+        }
+        //get data from form and add to array
+        function titleCase(str) {
+            var splitStr = str.toLowerCase().split(' ');
+            for (var i = 0; i < splitStr.length; i++) {
+               // You do not need to check if i is larger than splitStr length, as your for does that for you
+               // Assign it back to the array
+               splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
             }
-            
-            res.redirect("/gags/" + newlyGag.id);
+        // Directly return the joined string
+        return splitStr.join(' '); 
         }
-    })
-    
-   
+
+        //DATA
+        var title = titleCase(req.body.title);
+        if(!req.file){
+            var image = req.body.url;
+        } else {
+            // var gagTarget = 'public/uploads/tmp/' + req.file.filename;
+            // var image = "/uploads/tmp/" + req.file.filename;
+            // var source = tinify.fromFile(gagTarget);
+            // source.toFile(gagTarget);
+            var image = result.url;
+        }
+        var info = req.body.info;
+        var author = {
+            id: req.user.id,
+            username: req.user.username
+        }
+        var category = req.body.category;
+        var newGag = {title: title, image: image, info: info, author: author, category: category};
+
+        //Save to database
+        Gag.create(newGag, function(err, newlyGag){
+            if(err){
+                console.log("An error has occur");
+                console.log(err);
+            } else {
+                //redirect to index
+                console.log(newlyGag);
+                res.redirect("/gags/" + newlyGag.id);
+                //END OF TINIFY CLOUDIANRY
+            }
+            //END OF GAG CREATE
+        })
+    });
 })
 
 
