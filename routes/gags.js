@@ -21,7 +21,7 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage });
+// var upload = multer({ storage: storage });
 
 ///////////////////////
 //Classify the content
@@ -82,16 +82,23 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 
 app.use(middleware.isLoggedIn);
 //CREATE
-router.post("/", upload.single('gag'), function(req, res){
-    cloudinary.v2.uploader.upload('public/uploads/tmp/' + req.file.filename, {public_id: req.file.filename }, function(error, result) {
-        if(error) {
-            console.log("Error");
+router.post("/", function(req, res){
+    //MAGIC NUMBER
+    var upload = multer({
+        storage: storage
+    }).single('gag')
+    upload(req, res, function(err) {
+
+        var MAGIC_NUMBERS = {
+            jpg: 'ffd8ffe0',
+            jpg1: 'ffd8ffe1',
+            png: '89504e47',
+            gif: '47494638',
+            mp4: '00000020',
+            webm: '1a45dfa3'
         }
-        else {
-                    console.log(result.url)
-                    var image = result.url;
-        }
-        //get data from form and add to array
+
+        //All first characters title should be in uppercase
         function titleCase(str) {
             var splitStr = str.toLowerCase().split(' ');
             for (var i = 0; i < splitStr.length; i++) {
@@ -103,38 +110,79 @@ router.post("/", upload.single('gag'), function(req, res){
         return splitStr.join(' '); 
         }
 
-        //DATA
-        var title = titleCase(req.body.title);
-        if(!req.file){
-            var image = req.body.url;
-        } else {
-            // var gagTarget = 'public/uploads/tmp/' + req.file.filename;
-            // var image = "/uploads/tmp/" + req.file.filename;
-            // var source = tinify.fromFile(gagTarget);
-            // source.toFile(gagTarget);
-            var image = result.url;
+        //Check if video is larger than 100mb
+        if(req.file.size > 104857600) {
+            cloudinary.uploader.upload_large('public/uploads/tmp/' + req.file.filename, function(result) {
+                var image = '<video id="meme-content" src=' + '"' + result.url.replace(".gif", ".mp4") + '"' + 'controls loop preload="metadata">' +
+                             '<source id="video-source" src=' + '"' + result.url + '"' + ' type="video/mp4">' +
+                            '</video>';
+            }, 
+            { resource_type: "video" });
         }
-        var info = req.body.info;
-        var author = {
-            id: req.user.id,
-            username: req.user.username
-        }
-        var category = req.body.category;
-        var newGag = {title: title, image: image, info: info, author: author, category: category};
 
-        //Save to database
-        Gag.create(newGag, function(err, newlyGag){
-            if(err){
-                console.log("An error has occur");
-                console.log(err);
+
+        cloudinary.v2.uploader.upload('public/uploads/tmp/' + req.file.filename, {resource_type: "auto", use_filename: true, unique_filename: false }, function(error, result) {
+            if(error) {
+                console.log(error);
             } else {
-                //redirect to index
-                console.log(newlyGag);
-                res.redirect("/gags/" + newlyGag.id);
-                //END OF TINIFY CLOUDIANRY
+                //DATA
+                var info = req.body.info;
+                var author = {
+                    id: req.user.id,
+                    username: req.user.username
+                };
+                var category = req.body.category;
+                var title = titleCase(req.body.title);
+            
+                var magic = fs.readFileSync('public/uploads/tmp/' + req.file.filename).toString('hex', 0, 4);
+
+                //Var image
+                if(!req.file){
+                    var image = req.body.url;
+                } else {
+                    // var gagTarget = 'public/uploads/tmp/' + req.file.filename;
+                    // var image = "/uploads/tmp/" + req.file.filename;
+                    // var source = tinify.fromFile(gagTarget);
+                    // source.toFile(gagTarget);
+                    // console.log(result.url)
+                    // var image = result.url; 
+                    if(magic == MAGIC_NUMBERS.jpg || magic == MAGIC_NUMBERS.jpg1 || magic == MAGIC_NUMBERS.png) {
+                        var image = '<img id="meme-content" src=' + "'" + result.url + "'" + '>';
+                    } else if (magic == MAGIC_NUMBERS.gif || magic == MAGIC_NUMBERS.mp4 || magic == MAGIC_NUMBERS.webm) {
+                        // var mp4s = result.url.replace(/\s/g, '');
+                        var image = '<video id="meme-content" src=' + '"' + result.url.replace(".gif", ".mp4") + '"' + 'controls loop preload="metadata">' +
+                                     '<source id="video-source" src=' + '"' + result.url + '"' + ' type="video/mp4">' +
+                                    '</video>';
+                    }
+                }
+
+                //Gather new data in one var
+                var newGag = {title: title, image: image, info: info, author: author, category: category};
+
+                //Save to database
+                Gag.create(newGag, function(err, newlyGag){
+                    if(err){
+                        console.log("An error has occur");
+                        console.log(err);
+                    } else {
+                        //redirect to index
+                        console.log(newlyGag);
+                        res.redirect("/gags/" + newlyGag.id);
+                        console.log(magic);
+                        console.log(req.file.size);
+                    }
+                })
+                //END OF GAG CREATE
             }
-            //END OF GAG CREATE
+            //END OF ELSE
         })
+        //END OF CLOUDINARY 
+        
+
+        //Cloudinary
+        
+             
+    //DATA
     });
 })
 

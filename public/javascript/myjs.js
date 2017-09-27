@@ -341,15 +341,17 @@ $(function() {
 		var mp4elements = document.querySelectorAll('#meme-content');
 
 		for (var i = 0, len = mp4elements.length; i < len; i++) {
-		  if(mp4elements[i].src.indexOf('.mp4') > 0) {
-		  	 mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls muted preload='metadata'")
+		  if(mp4elements[i].src.indexOf('.gif') > 0) {
+		  	 // mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls muted preload='none'")
+		  	  mp4elements[i].src.replace(".gif", ".mp4");
+		  	  console.log(mp4elements)
 		  }
 		}
 	}
 	
 	mp4enabler();
 
-	// /////////////////////////
+	// /////////////////////////1
 	// //////VIDEO-CONTROL//////
 	// /////////////////////////
 

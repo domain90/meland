@@ -11,11 +11,10 @@
       <div class="card">
         <div class="head-title">
           <h3 class="gag-title"><%= gag["title"] %></h3>
-          
         </div>
         <div class="content-img">
           <a href="/gags/<%= gag['_id'] %>">
-            <img id="meme-content" src="<%= gag['image'] %>">
+            <%- gag['image'] %>
           </a>
         </div>
         <div class="meta">
@@ -33,7 +32,7 @@
                 <div class="btn-vote btn btn-default btn-upvote">
                     <span class="glyphicon glyphicon-arrow-up">
                 </div>
-                <div class="btn-vote btn btn-default btn-downvote">
+                <div class="btn-vote btn btn-default btn-downvote"> 
                   <span class="glyphicon glyphicon-arrow-down">
                 </div>
               </div>
