@@ -71,11 +71,6 @@ module.exports = function() {
                     newUser.email           = profile.emails[0].value;
                     newUser.facebook.token  = token; // we will save the token that facebook provides to the user      
 
-                    mkdirp('public/uploads/' + newUser._id, function (err) {
-                        if (err) console.error(err)
-                        else console.log('pow!')
-                    });   
-
                     // save our user to the database
                     newUser.save(function(err, data) {
                         if (err) {

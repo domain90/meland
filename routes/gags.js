@@ -110,82 +110,145 @@ router.post("/", function(req, res){
         return splitStr.join(' '); 
         }
 
-        //Check if video is larger than 100mb
-        if(req.file.size > 104857600) {
-            cloudinary.uploader.upload_large('public/uploads/tmp/' + req.file.filename, function(result) {
-                var image = '<video id="meme-content" src=' + '"' + result.url.replace(".gif", ".mp4") + '"' + 'controls loop preload="metadata">' +
-                             '<source id="video-source" src=' + '"' + result.url + '"' + ' type="video/mp4">' +
-                            '</video>';
-            }, 
-            { resource_type: "video" });
-        }
+        // Check if video is larger than 100mb
+        if(req.file.size <= 10485760) {
+            cloudinary.v2.uploader.upload('public/uploads/tmp/' + req.file.filename, {resource_type: "auto", use_filename: true, unique_filename: false }, function(error, result) {
+                if(error) {
+                    console.log(error);
+                } else {
+                    //DATA
+                    var info = req.body.info;
+                    var author = {
+                        id: req.user.id,
+                        username: req.user.username
+                    };
+                    var category = req.body.category;
+                    var title = titleCase(req.body.title);
+                
+                    var magic = fs.readFileSync('public/uploads/tmp/' + req.file.filename).toString('hex', 0, 4);
 
+                    //Var image
+                    if(!req.file){
+                        var urlTarget = req.body.url;
+                        if(urlTarget.indexOf('.jpg') || urlTarget.indexOf('.png') || urlTarget.indexOf('.jpg')) {
+                            var image = '<img id="meme-content" src=' + "'" + urlTarget + "'" + '>';
+                        }
+                    } else {
+                        // var gagTarget = 'public/uploads/tmp/' + req.file.filename;
+                        // var image = "/uploads/tmp/" + req.file.filename;
+                        // var source = tinify.fromFile(gagTarget);
+                        // source.toFile(gagTarget);
+                        // console.log(result.url)
+                        // var image = result.url; 
+                        if(magic == MAGIC_NUMBERS.jpg || magic == MAGIC_NUMBERS.jpg1 || magic == MAGIC_NUMBERS.png) {
+                            var image = '<img id="meme-content" src=' + "'" + result.url + "'" + '>';
+                        } else if (magic == MAGIC_NUMBERS.gif || magic == MAGIC_NUMBERS.mp4 || magic == MAGIC_NUMBERS.webm) {
+                            // var mp4s = result.url.replace(/\s/g, '');
+                            var image = '<video id="meme-content" src=' + '"' + result.url.replace(".gif", ".mp4") + '"' + 'controls loop preload="metadata">' +
+                                         '<source id="video-source" src=' + '"' + result.url + '"' + ' type="video/mp4">' +
+                                        '</video>';
+                        }
 
-        cloudinary.v2.uploader.upload('public/uploads/tmp/' + req.file.filename, {resource_type: "auto", use_filename: true, unique_filename: false }, function(error, result) {
-            if(error) {
-                console.log(error);
+                        var newGag = {title: title, image: image, info: info, author: author, category: category};
+
+                        Gag.create(newGag, function(err, newlyGag){
+                            if(err){
+                                console.log("An error has occur");
+                                console.log(err);
+                            } else {
+                                //redirect to index
+                                console.log(newlyGag);
+                                res.redirect("/gags/" + newlyGag.id);
+                                console.log(req.file.size);
+                            }
+                        })
+                    }
+                    //END OF CREATE
+                }
+                //END OF ELSE
+            })
+            //END OF CLOUDINARY
+        } else {
+            var info = req.body.info;
+            var author = {
+                id: req.user.id,
+                username: req.user.username
+            };
+            var category = req.body.category;
+            var title = titleCase(req.body.title);
+            //Var image
+            if(!req.file){
+                var image = req.body.url;
             } else {
-                //DATA
-                var info = req.body.info;
-                var author = {
-                    id: req.user.id,
-                    username: req.user.username
-                };
-                var category = req.body.category;
-                var title = titleCase(req.body.title);
-            
+
+                var tmp = '/public/uploads/tmp/' + req.file.filename;
+
                 var magic = fs.readFileSync('public/uploads/tmp/' + req.file.filename).toString('hex', 0, 4);
 
-                //Var image
-                if(!req.file){
-                    var image = req.body.url;
-                } else {
-                    // var gagTarget = 'public/uploads/tmp/' + req.file.filename;
-                    // var image = "/uploads/tmp/" + req.file.filename;
-                    // var source = tinify.fromFile(gagTarget);
-                    // source.toFile(gagTarget);
-                    // console.log(result.url)
-                    // var image = result.url; 
-                    if(magic == MAGIC_NUMBERS.jpg || magic == MAGIC_NUMBERS.jpg1 || magic == MAGIC_NUMBERS.png) {
-                        var image = '<img id="meme-content" src=' + "'" + result.url + "'" + '>';
-                    } else if (magic == MAGIC_NUMBERS.gif || magic == MAGIC_NUMBERS.mp4 || magic == MAGIC_NUMBERS.webm) {
-                        // var mp4s = result.url.replace(/\s/g, '');
-                        var image = '<video id="meme-content" src=' + '"' + result.url.replace(".gif", ".mp4") + '"' + 'controls loop preload="metadata">' +
-                                     '<source id="video-source" src=' + '"' + result.url + '"' + ' type="video/mp4">' +
-                                    '</video>';
-                    }
+                if (magic == MAGIC_NUMBERS.gif || magic == MAGIC_NUMBERS.mp4 || magic == MAGIC_NUMBERS.webm) {
+                    // var mp4s = result.url.replace(/\s/g, '');
+                    var image = '<video id="meme-content" src=' + '"' + tmp + '"' + 'controls loop preload="metadata">' +
+                                 '<source id="video-source" src=' + '"' + tmp + '"' + ' type="video/mp4">' +
+                                '</video>';
                 }
 
-                //Gather new data in one var
                 var newGag = {title: title, image: image, info: info, author: author, category: category};
 
-                //Save to database
                 Gag.create(newGag, function(err, newlyGag){
                     if(err){
                         console.log("An error has occur");
                         console.log(err);
                     } else {
                         //redirect to index
-                        console.log(newlyGag);
+                        // console.log(newlyGag);
                         res.redirect("/gags/" + newlyGag.id);
-                        console.log(magic);
                         console.log(req.file.size);
                     }
                 })
-                //END OF GAG CREATE
             }
-            //END OF ELSE
-        })
-        //END OF CLOUDINARY 
-        
-
-        //Cloudinary
-        
-             
-    //DATA
+        }
+        //END OF UPLOAD
     });
 })
 
+//Youtbe
+router.post("/youtube", function(req, res){
+    //All first characters title should be in uppercase
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+           // You do not need to check if i is larger than splitStr length, as your for does that for you
+           // Assign it back to the array
+           splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+        }
+    // Directly return the joined string
+    return splitStr.join(' '); 
+    }
+
+    //DATA
+    var info = req.body.info;
+    var author = {
+        id: req.user.id,
+        username: req.user.username
+    };
+    var category = req.body.category;
+    var title = titleCase(req.body.title);
+    var image = req.body,url;
+
+    var newGag = {title: title, image: image, info: info, author: author, category: category};
+
+    Gag.create(newGag, function(err, newlyGag){
+        if(err){
+            console.log("An error has occur");
+            console.log(err);
+        } else {
+            //redirect to index
+            // console.log(newlyGag);
+            res.redirect("/gags/" + newlyGag.id);
+        }
+    })
+    
+})
 
 //SHOW - displays more info about clicked/selected camp
 router.get("/gags/:id", function(req, res) {

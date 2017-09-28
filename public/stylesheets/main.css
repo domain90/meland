@@ -75,16 +75,12 @@ a#upload:focus, a#upload:hover {
 	overflow: hidden;
 	padding: 0;
 }
+.modal-body .row {
+	margin: 0;
+}
 .body-half {
-	width: 50%;
 	border: 1px solid #e5e5e5;
-	padding: 30px;
-}
-.left {
-	float: left;
-}
-.right {
-	float: right;
+	padding: 20px;
 }
 .body-half .glyphicon {
 	font-size: 50px;
@@ -103,6 +99,11 @@ a#upload:focus, a#upload:hover {
 .body-half:hover a, .body-half:focus a {
 	text-decoration: none;
 	color: #337ab7;
+}
+.fa-youtube-play {
+	font-size: 50px;
+	display: block;
+	text-align: center;
 }
 ul {
   list-style-type: none;
