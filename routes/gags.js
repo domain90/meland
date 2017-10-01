@@ -141,10 +141,10 @@ router.post("/", function(req, res){
                         // console.log(result.url)
                         // var image = result.url; 
                         if(magic == MAGIC_NUMBERS.jpg || magic == MAGIC_NUMBERS.jpg1 || magic == MAGIC_NUMBERS.png) {
-                            var image = '<img id="meme-content" src=' + "'" + result.url + "'" + '>';
+                            var image = '<img class="b-lazy" id="meme-content" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src=' + "'" + result.url + "'" + '>';
                         } else if (magic == MAGIC_NUMBERS.gif || magic == MAGIC_NUMBERS.mp4 || magic == MAGIC_NUMBERS.webm) {
                             // var mp4s = result.url.replace(/\s/g, '');
-                            var image = '<video id="meme-content" src=' + '"' + result.url.replace(".gif", ".mp4") + '"' + 'controls loop preload="metadata">' +
+                            var image = '<video class="b-lazy" id="meme-content" src=' + '"' + result.url.replace(".gif", ".mp4") + '"' + 'controls loop preload="metadata">' +
                                          '<source id="video-source" src=' + '"' + result.url + '"' + ' type="video/mp4">' +
                                         '</video>';
                         }
@@ -157,9 +157,11 @@ router.post("/", function(req, res){
                                 console.log(err);
                             } else {
                                 //redirect to index
-                                console.log(newlyGag);
+                                // console.log(req.file.size);
+                                // console.log(newlyGag);
+                                fs.unlink('public/uploads/tmp/' + req.file.filename)
                                 res.redirect("/gags/" + newlyGag.id);
-                                console.log(req.file.size);
+
                             }
                         })
                     }
@@ -185,11 +187,13 @@ router.post("/", function(req, res){
 
                 var magic = fs.readFileSync('public/uploads/tmp/' + req.file.filename).toString('hex', 0, 4);
 
-                if (magic == MAGIC_NUMBERS.gif || magic == MAGIC_NUMBERS.mp4 || magic == MAGIC_NUMBERS.webm) {
+                if (magic == MAGIC_NUMBERS.mp4 || magic == MAGIC_NUMBERS.webm) {
                     // var mp4s = result.url.replace(/\s/g, '');
-                    var image = '<video id="meme-content" src=' + '"' + tmp + '"' + 'controls loop preload="metadata">' +
+                    var image = '<video class="b-lazy" id="meme-content" src=' + '"' + tmp + '"' + 'controls loop preload="metadata">' +
                                  '<source id="video-source" src=' + '"' + tmp + '"' + ' type="video/mp4">' +
                                 '</video>';
+                } else if (magic == MAGIC_NUMBERS.jpg || magic == MAGIC_NUMBERS.jpg1 || magic == MAGIC_NUMBERS.png || magic == MAGIC_NUMBERS.gif) {
+                            var image = '<img class="b-lazy" id="meme-content" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src=' + "'" + result.url + "'" + '>';
                 }
 
                 var newGag = {title: title, image: image, info: info, author: author, category: category};
@@ -211,7 +215,57 @@ router.post("/", function(req, res){
     });
 })
 
-//Youtbe
+//LINK
+router.post("/links", function(req, res){
+    //All first characters title should be in uppercase
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+           // You do not need to check if i is larger than splitStr length, as your for does that for you
+           // Assign it back to the array
+           splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+        }
+    // Directly return the joined string
+    return splitStr.join(' '); 
+    }
+
+    //DATA
+    console.log(req.body);
+    var info = req.body.info;
+    var author = {
+        id: req.user.id,
+        username: req.user.username
+    };
+    var category = req.body.category;
+    var title = titleCase(req.body.title);
+
+    var urlTarget = req.body.url;
+        if(urlTarget.indexOf('.jpg') || urlTarget.indexOf('.png') || urlTarget.indexOf('.jpg') || urlTarget.indexOf('.gif') || urlTarget.indexOf('.gifv')) {
+            var image = '<img class="b-lazy" id="meme-content" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src=' + "'" + urlTarget + "'" + '>';
+        } else if(urlTarget.indexOf('.mp4')) { 
+            // var mp4s = result.url.replace(/\s/g, '');
+            var image = '<video class="b-lazy" id="meme-content" src=' + '"' + urlTarget + '"' + 'controls loop preload="metadata">' +
+                         '<source id="video-source" src=' + '"' + urlTarget + '"' + ' type="video/mp4">' +
+                        '</video>';
+        }
+
+
+    var newGag = {title: title, image: image, info: info, author: author, category: category};
+
+    Gag.create(newGag, function(err, newlyGag){
+        if(err){
+            console.log("An error has occur");
+            console.log(err);
+        } else {
+            //redirect to index
+            console.log(req.body);
+            res.redirect("/gags/" + newlyGag.id);
+        }
+    })
+    
+})
+
+//Youtube
 router.post("/youtube", function(req, res){
     //All first characters title should be in uppercase
     function titleCase(str) {
@@ -226,6 +280,7 @@ router.post("/youtube", function(req, res){
     }
 
     //DATA
+    console.log(req.body);
     var info = req.body.info;
     var author = {
         id: req.user.id,
@@ -233,7 +288,7 @@ router.post("/youtube", function(req, res){
     };
     var category = req.body.category;
     var title = titleCase(req.body.title);
-    var image = req.body,url;
+    var image = req.body.url;
 
     var newGag = {title: title, image: image, info: info, author: author, category: category};
 
@@ -243,7 +298,7 @@ router.post("/youtube", function(req, res){
             console.log(err);
         } else {
             //redirect to index
-            // console.log(newlyGag);
+            console.log(req.body);
             res.redirect("/gags/" + newlyGag.id);
         }
     })

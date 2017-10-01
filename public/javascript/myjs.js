@@ -351,7 +351,7 @@ $(function() {
 	
 	mp4enabler();
 
-	// /////////////////////////1
+	// /////////////////////////
 	// //////VIDEO-CONTROL//////
 	// /////////////////////////
 
@@ -370,6 +370,36 @@ $(function() {
 	//   var volumeBar = document.getElementById("volume-bar");
 
 	// }
+
+	// /////////////////////////
+	// //////BLAZY//////////////
+	// /////////////////////////
+
+	var bLazy = new Blazy({});
+
+	// /////////////////////////
+	// ////MORE_LOADER//////////
+	// /////////////////////////
+
+	$("article").slice(0, 6).show();
+	$(window).scroll(function() {
+    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+       $("article:hidden").slice(0, 6).slideDown();
+        if ($("div:hidden").length == 0) {
+            $("#load").fadeOut('slow');
+        }
+        $('html,body').animate({
+            scrollTop: $(this).offset().top
+        });
+   	}
+		// /////////////////////////
+		// ////////YOUTUBE//////////
+		// /////////////////////////
+
+		$('iframe').attr('id', 'meme-content');
+
+});
+
 //END OF JQUERY
 })
 
