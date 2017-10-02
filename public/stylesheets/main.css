@@ -161,7 +161,6 @@ input {
 #meme-content{
 	min-width: 600px;
 	max-width: 600px;
-	max-height: 600px;
 }
 .meta {
 	padding: 8px 0;

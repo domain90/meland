@@ -292,7 +292,7 @@ $(function() {
 	   	    // Reset progress indicator on new file selection.
 		    progress.style.width = '0%';
 		    progress.textContent = '0%';
-		    document.getElementById('upload-status').textContent = 'Archivos tipo JPG, PNG, GIF, MP4. Imagen MAX 8MB, Video 50MB';
+		    document.getElementById('upload-status').textContent = 'Archivos tipo JPG, PNG, GIF, MP4. MAX 10MB';
 
 		    reader = new FileReader();
 		    reader.onerror = errorHandler;
@@ -392,11 +392,12 @@ $(function() {
             scrollTop: $(this).offset().top
         });
    	}
-		// /////////////////////////
-		// ////////YOUTUBE//////////
-		// /////////////////////////
+   	
+	// /////////////////////////
+	// ////////YOUTUBE//////////
+	// /////////////////////////
 
-		$('iframe').attr('id', 'meme-content');
+	$('iframe').attr('id', 'meme-content');
 
 });
 
