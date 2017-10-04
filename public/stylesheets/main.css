@@ -12,7 +12,7 @@ body {
 /******************************************************/
 #b-logo {
 	font-size: 30px;
-	font-family: "Rubik", sans-serif;
+	font-family: "Mukta", sans-serif;
 	color: #000;
 	font-weight: 700;
 }
@@ -31,7 +31,7 @@ body {
 .navbar-default .navbar-nav> li > a {
 	color: #000;
 	font-weight: 700;
-	font-family: "Rubik", sans-serif;
+	font-family: "Mukta", sans-serif;
 }
 .avatar-container {
 	width: 30px;
