@@ -28,10 +28,14 @@ body {
 	right: 0;
 	z-index: 1000;
 }
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+	border-color: #000;
+}
 .navbar-default .navbar-nav> li > a {
 	color: #000;
 	font-weight: 700;
 	font-family: "Mukta", sans-serif;
+	font-size: 16px;
 }
 .avatar-container {
 	width: 30px;
