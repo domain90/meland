@@ -5,6 +5,7 @@ var userSchema = new mongoose.Schema({
     username: String,
     password: String,
     info: {type: String, default: Date.now()},
+    isMod: {type: Boolean, default: false},
     avatar: String,
     email: String,
     facebook         : {
