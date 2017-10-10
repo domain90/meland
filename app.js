@@ -22,11 +22,11 @@ var cloudinary            = require('cloudinary');
 //Server Config
 /////////////////////////////////////
 
-mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/yelp_camp_v6");
-// var uri = 'mongodb://user:pass@host:port/db';
-// mongodb.MongoClient.connect(uri, function (err, db) {
-//     /* adventure! */
-// });
+// mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/yelp_camp_v6");
+var uri = "mongodb://domain90:counter333@clusterme-shard-00-00-bjals.mongodb.net:27017,clusterme-shard-00-01-bjals.mongodb.net:27017,clusterme-shard-00-02-bjals.mongodb.net:27017/test?ssl=true&replicaSet=ClusterMe-shard-0&authSource=admin'";
+mongodb.MongoClient.connect(uri, function (err, db) {
+    db.close();
+});
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
