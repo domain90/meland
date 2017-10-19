@@ -24,7 +24,7 @@ var cloudinary            = require('cloudinary');
 
 var uri = "mongodb://domain90:counter333@clusterme-shard-00-00-bjals.mongodb.net:27017,clusterme-shard-00-01-bjals.mongodb.net:27017,clusterme-shard-00-02-bjals.mongodb.net:27017/test?ssl=true&replicaSet=ClusterMe-shard-0&authSource=admin";
 
-mongoose.connect(uri || "mongodb://localhost/yelp_camp_v6");
+mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/yelp_camp_v6");
 // mongodb.MongoClient.connect(uri, function (err, db) {
 //     db.close();
 // });
