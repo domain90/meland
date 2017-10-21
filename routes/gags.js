@@ -24,7 +24,7 @@ aws.config.update({
     region: "us-east-1"
 })
 
-var s3           = new aws.S3();
+var s3 = new aws.S3();
 // var storage = multer.diskStorage({
 //     destination: function (req, file, cb) {
 //         cb(null, 'public/uploads/tmp')
@@ -125,16 +125,18 @@ router.post("/", function(req, res){
                        // Assign it back to the array
                        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
                     }
-                // Directly return the joined string
-                return splitStr.join(' '); 
+                    // Directly return the joined string
+                    return splitStr.join(' '); 
                 }
 
-                var bucketObj = "http://menacion.s3.amazonaws.com/" + req.file.originalname;
-                if(req.file.originalname.indexOf(".jpg" || ".png" || ".jpg1")) {
+                console.log(typeof req.file.originalname);
+                var target    = req.file.originalname;
+                var bucketObj = "http://menacion.s3.amazonaws.com/" + target;
+                if(target.indexOf(".jpg" || ".png" || ".jpg1") > -1) {
+                    console.log(target.indexOf(".jpg" || ".png" || ".jpg1"));
                     var image = '<img class="b-lazy" id="meme-content" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src=' + "'" + bucketObj + "'" + '>';
-                } else if (req.file.originalname.indexOf(".gif" || ".mp4" || ".webm")) {
-                    // var mp4s = result.url.replace(/\s/g, '');
-                    var image = '<video class="b-lazy" id="meme-content" src=' + '"' + bucketObj.replace(".gif", ".mp4") + '"' + 'controls loop preload="metadata">' +
+                } else if (target.indexOf(".gif" || ".mp4" || ".webm")) {
+                    var image = '<video onload="actVideo();" class="b-lazy" id="meme-video" src=' + '"' + bucketObj.replace(".gif", ".mp4") + '"' + 'controls loop preload="metadata">' +
                                  '<source id="video-source" src=' + '"' + bucketObj + '"' + ' type="video/mp4">' +
                                 '</video>';
                 }
@@ -164,6 +166,8 @@ router.post("/", function(req, res){
             }
            
         })
+    })
+})
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -289,8 +293,7 @@ router.post("/", function(req, res){
         //     }
         // }
         //END OF UPLOAD
-    })
-})
+
 
 //LINK
 router.post("/links", function(req, res){

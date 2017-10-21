@@ -337,19 +337,19 @@ $(function() {
 	/////////////////////////
 	////////MP4PLAYER////////
 	/////////////////////////
-	function mp4enabler() {
-		var mp4elements = document.querySelectorAll('#meme-content');
+	// function mp4enabler() {
+	// 	var mp4elements = document.querySelectorAll('#meme-content');
 
-		for (var i = 0, len = mp4elements.length; i < len; i++) {
-		  if(mp4elements[i].src.indexOf('.gif') > 0) {
-		  	 // mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls muted preload='none'")
-		  	  mp4elements[i].src.replace(".gif", ".mp4");
-		  	  console.log(mp4elements)
-		  }
-		}
-	}
+	// 	for (var i = 0, len = mp4elements.length; i < len; i++) {
+	// 	  if(mp4elements[i].src.indexOf('.gif') > 0) {
+	// 	  	 // mp4elements[i].outerHTML = mp4elements[i].outerHTML.replace(/img/g, "video controls muted preload='none'")
+	// 	  	  mp4elements[i].src.replace(".gif", ".mp4");
+	// 	  	  console.log(mp4elements)
+	// 	  }
+	// 	}
+	// }
 	
-	mp4enabler();
+	// mp4enabler();
 
 	// /////////////////////////
 	// //////VIDEO-CONTROL//////
@@ -399,7 +399,17 @@ $(function() {
 
 	$('iframe').attr('id', 'meme-content');
 
-});
+	// /////////////////////////
+	// ////////VIDEOJS//////////
+	// /////////////////////////
+	// 	function actVideo() {
+	//     	videojs(document.getElementById('meme-video'), { "width": 600, "height": auto}, function(){
+	//     		this.addClass("video-js vjs-default-skin vjs-big-play-centered b-loaded");
+	//     	});
+	// 	}
+
+	// 	window.onload = actVideo;
+	// });
 
 //END OF JQUERY
 })
